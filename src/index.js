@@ -6,11 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { CartProvider } from './context/cart-context';
 import { WishlistProvider } from './context/wishlist-context';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <CartProvider>
       <WishlistProvider>
-      <App />
+        <App />
       </WishlistProvider>
     </CartProvider>
   </React.StrictMode>,

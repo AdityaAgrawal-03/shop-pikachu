@@ -6,6 +6,8 @@ export function Wishlist() {
 
   const { itemsInWishlist } = useWishlist();
 
+  console.log({itemsInWishlist})
+
   return (
     <>
       <h1>Items in wishlist: {itemsInWishlist.length}</h1>

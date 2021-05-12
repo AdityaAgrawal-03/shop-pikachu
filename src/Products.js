@@ -28,7 +28,7 @@ export function Products({setRoute}) {
     <div className="card-container">
     {
       products.map((item) => (
-        <ProductDetails item={item} setRoute={setRoute}/>
+        <ProductDetails item={item} id={item.id} setRoute={setRoute}/>
       ))
     }
   </div>
