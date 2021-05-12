@@ -1,17 +1,18 @@
-import { useCart } from './context/cart-context';
+import { useData } from './context/data-context';
 import { ShowItemsInCart } from "./ShowItemsInCart";
 
 
 export function Cart() {
 
-  const { itemsInCart } = useCart();
+  const { state: { cart } } = useData();
 
-  console.log({ itemsInCart });
+  console.log({cart})
+  
 
   return (
     <>
-      <h1>Items in cart: {itemsInCart.length} </h1>
-      {itemsInCart.map((item) => (
+      <h1>Items in cart: {cart.length} </h1>
+      {cart.map((item) => (
         <ShowItemsInCart item={item} id={item.id} />
       ))}
     </>

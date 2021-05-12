@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CartProvider } from './context/cart-context';
-import { WishlistProvider } from './context/wishlist-context';
+import { DataProvider } from './context/data-context';
+
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <CartProvider>
-      <WishlistProvider>
-        <App />
-      </WishlistProvider>
-    </CartProvider>
+    <DataProvider>
+      <App />
+    </DataProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

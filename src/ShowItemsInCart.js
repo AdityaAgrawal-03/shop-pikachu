@@ -1,8 +1,8 @@
-import { useCart } from "./context/cart-context";
+import { useData } from "./context/data-context";
 
 export function ShowItemsInCart({ item }) {
 
-  const { setItemsInCart } = useCart();
+  const { dispatch } = useData();
 
   return (
     <div className="card-container">
@@ -16,12 +16,21 @@ export function ShowItemsInCart({ item }) {
             <h3>{item.name}</h3>
           </div>
           <div className="card-price">{item.price}</div>
-          <button className="btn btn-primary" onClick={() => 
-            setItemsInCart(cartItems => cartItems.filter(currentCartItem => currentCartItem !== item))
-          }>
+          <div>
+            <button 
+              className="btn btn-secondary" 
+              onClick={() => dispatch({ type: "INC_QTY", payload: item})}> + </button>
+            <span> Quantity: {item.count} </span>
+            <button 
+              className="btn btn-secondary"
+              onClick={() => dispatch({ type: "DEC_QTY", payload: item})}
+              > - </button>
+          </div>
+          
+          <button className="btn btn-primary" onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: item})}>
             Remove from Cart
           </button>
-          <p>Count: {item.count}</p>
+          
         </div>
       </div>
     </div>

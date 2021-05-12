@@ -1,17 +1,15 @@
-import { useWishlist } from './context/wishlist-context';
+import { useData } from './context/data-context';
 import { ShowItemsInWishlist } from "./ShowItemsInWishlist";
 
 
 export function Wishlist() {
 
-  const { itemsInWishlist } = useWishlist();
-
-  console.log({itemsInWishlist})
+  const { state: { wishlist } } = useData();
 
   return (
     <>
-      <h1>Items in wishlist: {itemsInWishlist.length}</h1>
-      {itemsInWishlist.map((item) => (
+      <h1>Items in wishlist: {wishlist.length}</h1>
+      {wishlist.map((item) => (
         <ShowItemsInWishlist item={item} id={item.id} />
       ))}
     </>

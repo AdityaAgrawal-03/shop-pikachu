@@ -1,9 +1,9 @@
-import { useWishlist } from "./context/wishlist-context";
+import { useData } from "./context/data-context";
 
 export function ShowItemsInWishlist({ item }) {
 
-  const { itemsInWishlist, setItemsInWishlist } = useWishlist();
-  console.log({itemsInWishlist})
+  const { dispatch } = useData();
+  
 
   return (
     <div className="card-container">
@@ -17,12 +17,9 @@ export function ShowItemsInWishlist({ item }) {
             <h3>{item.name}</h3>
           </div>
           <div className="card-price">{item.price}</div>
-          <button className="btn btn-secondary" onClick={() =>
-            setItemsInWishlist((wishlistItems) => wishlistItems.filter((currentWishlistItem) => currentWishlistItem !== item))
-          }>
+          <button className="btn btn-secondary" onClick={() => dispatch({ type: "REMOVE_FROM_WISHLIST", payload: item})}>
             Remove from Wishlist
           </button>
-          <p>Count: {item.count}</p>
         </div>
       </div>
     </div>
