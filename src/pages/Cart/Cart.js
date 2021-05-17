@@ -1,5 +1,5 @@
-import { useData } from './context/data-context';
-import { ShowItemsInCart } from "./ShowItemsInCart";
+import { useData } from '../../context/data-context';
+import { ShowItemsInCart } from "../../ShowItemsInCart";
 
 
 export function Cart() {
@@ -13,7 +13,7 @@ export function Cart() {
     <>
       <h1>Items in cart: {cart.length} </h1>
       {cart.map((item) => (
-        <ShowItemsInCart item={item} id={item.id} />
+        <ShowItemsInCart item={item} key={item.id} />
       ))}
     </>
   );

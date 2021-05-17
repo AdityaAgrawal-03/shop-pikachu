@@ -9,10 +9,34 @@
 
 .app-header {
   text-align: center;
+ 
 }
 
-.card-container {
-  width: 60%;
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+  position: sticky;
+
+  top: 0;
+  z-index: 1;
+  background-color: var(--primary-color);
+}
+
+.nav-icons {
+  margin-right: 7rem;
+ 
+}
+
+.nav-icons span {
+  color: rgba(255, 255, 255, 1);
+}
+
+.logo {
+  letter-spacing: 2px;
+  margin-left: 7rem;
 }
 
 .card {

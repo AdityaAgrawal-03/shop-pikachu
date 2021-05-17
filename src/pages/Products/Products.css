@@ -1,0 +1,29 @@
+.product-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #c2bfbf;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  
+}
+
+.filter-category {
+  margin-top: 2rem;
+}
+
+label {
+  cursor: pointer;
+}
+
+label > input {
+  margin-left: 1rem;
+}
