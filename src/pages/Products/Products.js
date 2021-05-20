@@ -1,13 +1,36 @@
-import { ProductCard } from "../../components/ProductCard";
+import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { useData } from "../../context/data-context";
 import { data } from "../../data/data";
 import "./Products.css";
 
 export function Products({ setRoute }) {
   const {
-    state: { sortBy, showFastDeliveryOnly, showInventoryAll },
+    state: {
+      sortBy,
+      showFastDeliveryOnly,
+      showInventoryAll,
+      sortByType
+    },
     dispatch,
   } = useData();
+
+  // const getFilteredDataByType = (productList, sortByType) => {
+  //   if (sortByType && sortByType === "MOUNTAIN_BIKE") {
+  //     return productList.filter(({ bikes }) => bikes["mountainBike"])
+  //   }
+
+  //   if (sortByType && sortByType === "HYBRID_BIKE") {
+  //     return productList.filter(({ bikes }) => bikes["hybridBike"])
+  //   }
+
+  //   if (sortByType && sortByType === "ROAD_BIKE") {
+  //     return productList.filter(({ bikes }) => bikes["roadBike"])
+  //   }
+
+  //   if (sortByType && sortByType === "KIDS_BIKE") {
+  //     return productList.filter(({ bikes }) => bikes["kidsBike"])
+  //   }
+  // }
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -108,10 +131,34 @@ export function Products({ setRoute }) {
             <h3>Bikes</h3>
           </div>
           <div className="filter-options">
-            <p>Mountain Bikes</p>
-            <p>Road Bikes</p>
-            <p>Hybrid Bikes</p>
-            <p>Kids Bikes</p>
+            <label>
+              Mountain Bikes
+              <input
+                type="checkbox"
+                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "MOUNTAIN_BIKE" })}
+              />
+            </label>
+            <label>
+              Road Bikes
+              <input
+                type="checkbox"
+                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "ROAD_BIKE" })}
+              />
+            </label>
+            <label>
+              Hybrid Bikes
+              <input
+                type="checkbox"
+                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "HYBRID_BIKE" })}
+              />
+            </label>
+            <label>
+              Kids Bikes
+              <input
+                type="checkbox"
+                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "KIDS_BIKE" })}
+              />
+            </label>
           </div>
         </div>
       </div>

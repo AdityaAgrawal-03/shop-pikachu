@@ -9,6 +9,7 @@ const initialState = {
   sortBy: null,
   showFastDeliveryOnly: false,
   showInventoryAll: false,
+  totalPrice: 0,
 }
 
 export function DataProvider({ children }) {

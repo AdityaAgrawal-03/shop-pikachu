@@ -1,7 +1,11 @@
 export const reducerFunc = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      return { ...state, cart: [...state.cart, action.payload] };
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+        totalPrice: state.totalPrice + Number(action.payload.price),
+      };
 
     case "INC_QTY":
       return {
@@ -11,6 +15,7 @@ export const reducerFunc = (state, action) => {
             ? { ...currentCartItem, count: currentCartItem.count + 1 }
             : currentCartItem
         ),
+        totalPrice: state.totalPrice + Number(action.payload.price),
       };
 
     case "DEC_QTY":
@@ -21,6 +26,7 @@ export const reducerFunc = (state, action) => {
             ? { ...currentCartItem, count: currentCartItem.count - 1 }
             : currentCartItem
         ),
+        totalPrice: state.totalPrice - Number(action.payload.price),
       };
 
     case "REMOVE_FROM_CART":
@@ -29,6 +35,7 @@ export const reducerFunc = (state, action) => {
         cart: state.cart.filter(
           (currentCartItem) => currentCartItem.id !== action.payload.id
         ),
+        totalPrice: state.totalPrice - (action.payload.count * Number(action.payload.price))
       };
 
     case "ADD_TO_WISHLIST":
@@ -50,6 +57,9 @@ export const reducerFunc = (state, action) => {
 
     case "TOGGLE_DELIVERY":
       return { ...state, showFastDeliveryOnly: !state.showFastDeliveryOnly };
+
+    case "TOGGLE_BIKE":
+      return { ...state, sortByType: action.payload };
 
     default:
       return state;

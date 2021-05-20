@@ -1,0 +1,10 @@
+
+.wishlist-page-heading {
+  margin-left: 4rem;
+}
+
+.card-container-wishlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

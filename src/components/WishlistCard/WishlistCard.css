@@ -1,0 +1,14 @@
+.card-wishlist {
+  width: 40%;
+  margin: 1rem 4rem;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.card-buttons button {
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,9 @@
+.card-price {
+  font-weight: bold;
+}
+
+.btn-primary-icon-label, .btn-secondary-icon-label  {
+  display: flex;
+  justify-content: space-evenly;
+  width: 12vw;
+}

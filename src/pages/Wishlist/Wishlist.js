@@ -1,17 +1,20 @@
-import { useData } from '../../context/data-context';
-import { ShowItemsInWishlist } from "../../ShowItemsInWishlist";
+import { useData } from "../../context/data-context";
+import { WishlistCard } from "../../components/WishlistCard/WishlistCard";
+import "./Wishlist.css";
 
-
-export function Wishlist() {
-
-  const { state: { wishlist } } = useData();
+export function Wishlist({ setRoute }) {
+  const {
+    state: { wishlist },
+  } = useData();
 
   return (
-    <>
-      <h1>Items in wishlist: { wishlist.length }</h1>
-      {wishlist.map((item) => (
-        <ShowItemsInWishlist item={item} key={item.id} />
-      ))}
-    </>
+    <div className="wishlist-page">
+      <h2 className="wishlist-page-heading">Wishlist</h2>
+      <div className="card-container card-container-wishlist">
+        {wishlist.map((item) => (
+          <WishlistCard item={item} key={item.id} setRoute={setRoute} />
+        ))}
+      </div>
+    </div>
   );
 }

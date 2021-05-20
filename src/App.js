@@ -16,7 +16,7 @@ function App() {
       <div className="app-body">
         {route === 'products' && <Products setRoute={setRoute}/>}
         {route === 'cart' && <Cart />}
-        {route === 'wishlist' && <Wishlist />}
+        {route === 'wishlist' && <Wishlist setRoute={setRoute}/>}
       </div>
     </div>
   );

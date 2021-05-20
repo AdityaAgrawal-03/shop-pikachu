@@ -1,0 +1,8 @@
+.card-cart {
+  margin: 1rem 2rem 1rem 4rem;
+  width: 80%;
+}
+
+.card-cart .btn-primary {
+  border-radius: 50%;
+}
