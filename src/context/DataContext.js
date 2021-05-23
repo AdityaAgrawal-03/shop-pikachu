@@ -12,7 +12,7 @@ const initialState = {
   totalPrice: 0,
 }
 
-export function DataProvider({ children }) {
+export const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunc, initialState);
 
   return (
@@ -22,6 +22,6 @@ export function DataProvider({ children }) {
   )
 }
 
-export function useData() {
+export const useData = () => {
   return useContext(DataContext);
 }

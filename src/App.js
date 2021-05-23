@@ -1,22 +1,24 @@
-import { useState } from 'react';
-import './App.css';
-import { Cart } from './pages/Cart/Cart';
-import { Wishlist } from './pages/Wishlist/Wishlist';
-import { Products } from './pages/Products/Products';
-import { Header } from './Header';
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import { Cart } from "./pages/Cart/Cart";
+import { Wishlist } from "./pages/Wishlist/Wishlist";
+import { Products } from "./pages/Products/Products";
+import { Header } from "./components/Header/Header";
+import { NoMatch } from "./pages/NoMatch";
 
 function App() {
-  const [route, setRoute] = useState("products");
-
   return (
     <div className="App">
       <div className="app-header">
-        <Header setRoute={setRoute} />
+        <Header />
       </div>
       <div className="app-body">
-        {route === 'products' && <Products setRoute={setRoute}/>}
-        {route === 'cart' && <Cart />}
-        {route === 'wishlist' && <Wishlist setRoute={setRoute}/>}
+        <Routes>
+          <Route path="/" element={<Products />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
       </div>
     </div>
   );

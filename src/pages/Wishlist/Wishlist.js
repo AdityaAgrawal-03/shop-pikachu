@@ -2,7 +2,7 @@ import { useData } from "../../context/data-context";
 import { WishlistCard } from "../../components/WishlistCard/WishlistCard";
 import "./Wishlist.css";
 
-export function Wishlist({ setRoute }) {
+export function Wishlist() {
   const {
     state: { wishlist },
   } = useData();
@@ -12,7 +12,7 @@ export function Wishlist({ setRoute }) {
       <h2 className="wishlist-page-heading">Wishlist</h2>
       <div className="card-container card-container-wishlist">
         {wishlist.map((item) => (
-          <WishlistCard item={item} key={item.id} setRoute={setRoute} />
+          <WishlistCard item={item} key={item.id} />
         ))}
       </div>
     </div>

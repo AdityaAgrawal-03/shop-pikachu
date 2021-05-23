@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 import { useData } from "../../context/data-context";
 import "./ProductCard.css";
 
-export function ProductCard({ item, setRoute }) {
+export function ProductCard({ item }) {
   const {
     state: { cart, wishlist },
     dispatch,
   } = useData();
 
-  const { name, price, image, fastDelivery, inStock, bikes } = item;
+  const { price, fastDelivery, inStock, bikes } = item;
 
   const isInCart = cart.find((cartItem) => cartItem.id === item.id);
   const isInWishlist = wishlist.find(
@@ -39,13 +40,12 @@ export function ProductCard({ item, setRoute }) {
         {console.log(bikes)}
 
         {isInCart ? (
-          <button
-            className="btn btn-primary btn-primary-icon-label"
-            onClick={() => setRoute("cart")}
-          >
-            Go to cart
-            <span class="material-icons-outlined">east</span>
-          </button>
+          <Link to="/cart" className="link">
+            <button className="btn btn-primary btn-primary-icon-label">
+              Go to cart
+              <span class="material-icons-outlined">east</span>
+            </button>
+          </Link>
         ) : (
           <button
             className="btn btn-primary btn-primary-icon-label"

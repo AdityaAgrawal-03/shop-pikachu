@@ -1,13 +1,14 @@
-import { useData } from "../../context/data-context";
+import { Link } from "react-router-dom";
+import { useData } from "../../context/DataContext";
 import "./WishlistCard.css";
 
-export function WishlistCard({ item, setRoute }) {
+export function WishlistCard({ item }) {
   const {
     state: { cart, wishlist },
     dispatch,
   } = useData();
 
-  const { name, image, price } = item;
+  const { price, inStock } = item;
 
   const isInCart = cart.find((cartItem) => cartItem.id === item.id);
   const isInWishlist = wishlist.find(
@@ -30,25 +31,39 @@ export function WishlistCard({ item, setRoute }) {
         </div>
         <div className="card-price">Rs. {price}</div>
         <div className="card-buttons">
-          {isInCart ? (
-            <button
-              className="btn btn-primary btn-primary-icon-label"
-              onClick={() => setRoute("cart")}
-            >
-              Go to cart
-              <span class="material-icons-outlined">east</span>
-            </button>
+          {inStock ? (
+            <>
+              {isInCart ? (
+                <Link to="/cart" className="link">
+                  <button className="btn btn-primary btn-primary-icon-label">
+                    Go to cart
+                    <span class="material-icons-outlined">east</span>
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  className="btn btn-primary btn-primary-icon-label"
+                  onClick={() =>
+                    dispatch({ type: "ADD_TO_CART", payload: item })
+                  }
+                >
+                  <span className="material-icons-outlined md-light">
+                    add_shopping_cart
+                  </span>
+                  Add to Cart
+                </button>
+              )}
+            </>
           ) : (
-            <button
-              className="btn btn-primary btn-primary-icon-label"
-              onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
-            >
-              <span className="material-icons-outlined md-light">
-                add_shopping_cart
-              </span>
-              Add to Cart
-            </button>
+            <div>
+              {" "}
+              Out of stock
+              <Link to="/" className="link">
+                <button className="btn btn-primary">Show similar items</button>
+              </Link>
+            </div>
           )}
+
           {isInWishlist ? (
             <button
               className="btn btn-default"

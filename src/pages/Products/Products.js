@@ -14,24 +14,6 @@ export function Products({ setRoute }) {
     dispatch,
   } = useData();
 
-  // const getFilteredDataByType = (productList, sortByType) => {
-  //   if (sortByType && sortByType === "MOUNTAIN_BIKE") {
-  //     return productList.filter(({ bikes }) => bikes["mountainBike"])
-  //   }
-
-  //   if (sortByType && sortByType === "HYBRID_BIKE") {
-  //     return productList.filter(({ bikes }) => bikes["hybridBike"])
-  //   }
-
-  //   if (sortByType && sortByType === "ROAD_BIKE") {
-  //     return productList.filter(({ bikes }) => bikes["roadBike"])
-  //   }
-
-  //   if (sortByType && sortByType === "KIDS_BIKE") {
-  //     return productList.filter(({ bikes }) => bikes["kidsBike"])
-  //   }
-  // }
-
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
       return productList.sort((a, b) => b["price"] - a["price"]);
