@@ -1,4 +1,4 @@
-import { useData } from "../../context/data-context";
+import { useData } from "../../context/DataContext";
 import { CartCard } from "../../components/CartCard/CartCard";
 import "./Cart.css";
 

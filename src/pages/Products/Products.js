@@ -1,5 +1,5 @@
 import { ProductCard } from "../../components/ProductCard/ProductCard";
-import { useData } from "../../context/data-context";
+import { useData } from "../../context/DataContext";
 import { data } from "../../data/data";
 import "./Products.css";
 

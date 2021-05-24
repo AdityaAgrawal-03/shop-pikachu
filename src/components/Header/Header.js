@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useData } from "../../context/data-context";
+import { useData } from "../../context/DataContext";
 
 export function Header({ setRoute }) {
   const {
