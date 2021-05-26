@@ -5,22 +5,24 @@ import { Wishlist } from "./pages/Wishlist/Wishlist";
 import { Products } from "./pages/Products/Products";
 import { Header } from "./components/Header/Header";
 import { NoMatch } from "./pages/NoMatch";
+import { Login } from "./pages/Login/Login";
+import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <div className="app-header">
+    <Routes>
+      <div>
         <Header />
-      </div>
-      <div className="app-body">
         <Routes>
           <Route path="/" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <PrivateRoute path="/cart" element={<Cart />} />
+          <PrivateRoute path="/wishlist" element={<Wishlist />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </div>
-    </div>
+
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 

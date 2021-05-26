@@ -16,7 +16,7 @@ export function ProductCard({ item }) {
   );
 
   return (
-    <div className="card card-shadow card-badge">
+    <div className="card card-shadow card-badge card-product">
       <span className="badge badge-best-value">Best Value</span>
       <div className="card-header">
         <img

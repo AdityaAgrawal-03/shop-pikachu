@@ -1,0 +1,89 @@
+
+ nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--primary-color);
+}
+
+.nav-icons {
+  display: flex;
+  margin-right: 10rem;
+}
+
+.nav-icons span {
+  color: rgba(255, 255, 255, 1);
+}
+
+.logo {
+  margin-left: 3rem;
+}
+
+.btn-logo {
+  color: var(--font-color);
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+
+
+.btn-logo:hover {
+  background-color: var(--primary-color);
+}
+
+.dialog-container { display: flex; }
+
+.dialog-content-container {
+  display: flex;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.dialog-content {
+  position: relative;
+  text-align: left;
+  border: none;
+  margin: auto;
+  width: 30%;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .5);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--font-color);
+  animation: animatedialog 0.8s;
+}
+
+@keyframes animatedialog {
+  from {
+    opacity: 0;
+    bottom: -50%;
+  }
+
+  to {
+    opacity: 1;
+    bottom: 0;
+  }
+} 
+
+.dialog-title,
+.dialog-body,
+.dialog-footer { margin-top: 1rem; }
+
+.openAlertBtn:hover, 
+.openModalBtn:hover,
+.dialog-modal-closeBtn:hover { background-color: var(--button-primary-hover); } 
+
+.dialog-alert-yesBtn { background-color: var(--dialog-alert-yesBtn); }
+
+.dialog-alert-yesBtn:hover { background-color: var(--dialog-alert-yesBtn-hover);}
+.dialog-alert-noBtn:hover { background-color: var(--dialog-alert-noBtn-hover);}
+

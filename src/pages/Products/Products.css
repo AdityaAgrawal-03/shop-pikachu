@@ -1,6 +1,7 @@
 .product-page {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  margin-top: 2rem;
 }
 
 .filter-container {
@@ -8,14 +9,12 @@
   flex-direction: column;
   border-right: 1px solid #c2bfbf;
   margin-left: 4rem;
-  
 }
 
 .filter-options {
   display: flex;
   flex-direction: column;
   justify-content: baseline;
-  
 }
 
 .filter-category {
@@ -30,3 +29,6 @@ label > input {
   margin-left: 1rem;
 }
 
+.card-product {
+  margin: 0 10rem 1rem 10rem;
+}

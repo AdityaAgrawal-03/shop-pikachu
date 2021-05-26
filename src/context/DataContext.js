@@ -10,6 +10,7 @@ const initialState = {
   showFastDeliveryOnly: false,
   showInventoryAll: false,
   totalPrice: 0,
+  
 }
 
 export const DataProvider = ({ children }) => {
