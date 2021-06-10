@@ -1,18 +1,15 @@
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { useData } from "../../context/DataContext";
-import { data } from "../../data/data";
+import { data } from "../../data/data-model";
 import "./Products.css";
 
-export function Products({ setRoute }) {
+export function Products() {
   const {
-    state: {
-      sortBy,
-      showFastDeliveryOnly,
-      showInventoryAll,
-      sortByType
-    },
+    state: { sortBy, showFastDeliveryOnly, showInventoryAll },
     dispatch,
   } = useData();
+
+  const { products } = data;
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -37,7 +34,7 @@ export function Products({ setRoute }) {
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   };
 
-  const sortedData = getSortedData(data, sortBy);
+  const sortedData = getSortedData(products, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showFastDeliveryOnly,
     showInventoryAll,
@@ -117,28 +114,28 @@ export function Products({ setRoute }) {
               Mountain Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "MOUNTAIN_BIKE" })}
+                onChange={() => dispatch({ type: "TOGGLE_MOUNTAIN_BIKE" })}
               />
             </label>
             <label>
               Road Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "ROAD_BIKE" })}
+                onChange={() => dispatch({ type: "TOGGLE_ROAD_BIKE" })}
               />
             </label>
             <label>
               Hybrid Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "HYBRID_BIKE" })}
+                onChange={() => dispatch({ type: "TOGGLE_HYBRID_BIKE" })}
               />
             </label>
             <label>
               Kids Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_BIKE", payload: "KIDS_BIKE" })}
+                onChange={() => dispatch({ type: "TOGGLE_KIDS_BIKE" })}
               />
             </label>
           </div>
@@ -146,7 +143,7 @@ export function Products({ setRoute }) {
       </div>
       <div className="card-container">
         {filteredData.map((item) => (
-          <ProductCard item={item} key={item.id} setRoute={setRoute} />
+          <ProductCard item={item} key={item.id} />
         ))}
       </div>
     </div>

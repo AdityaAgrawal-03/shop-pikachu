@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import "./Header.css";
 
-export function Header({}) {
+export function Header() {
   const {
     state: { cart, wishlist },
   } = useData();

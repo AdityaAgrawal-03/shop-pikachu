@@ -1,5 +1,4 @@
-
- nav {
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,6 +16,7 @@
 
 .nav-icons span {
   color: rgba(255, 255, 255, 1);
+  
 }
 
 .logo {
@@ -29,23 +29,23 @@
   letter-spacing: 4px;
 }
 
-
-
 .btn-logo:hover {
   background-color: var(--primary-color);
 }
 
-.dialog-container { display: flex; }
+.dialog-container {
+  display: flex;
+}
 
 .dialog-content-container {
   display: flex;
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.8);
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 1400;
 }
 
 .dialog-content {
@@ -54,7 +54,7 @@
   border: none;
   margin: auto;
   width: 30%;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -72,18 +72,27 @@
     opacity: 1;
     bottom: 0;
   }
-} 
+}
 
 .dialog-title,
 .dialog-body,
-.dialog-footer { margin-top: 1rem; }
+.dialog-footer {
+  margin-top: 1rem;
+}
 
-.openAlertBtn:hover, 
+.openAlertBtn:hover,
 .openModalBtn:hover,
-.dialog-modal-closeBtn:hover { background-color: var(--button-primary-hover); } 
+.dialog-modal-closeBtn:hover {
+  background-color: var(--button-primary-hover);
+}
 
-.dialog-alert-yesBtn { background-color: var(--dialog-alert-yesBtn); }
+.dialog-alert-yesBtn {
+  background-color: var(--dialog-alert-yesBtn);
+}
 
-.dialog-alert-yesBtn:hover { background-color: var(--dialog-alert-yesBtn-hover);}
-.dialog-alert-noBtn:hover { background-color: var(--dialog-alert-noBtn-hover);}
-
+.dialog-alert-yesBtn:hover {
+  background-color: var(--dialog-alert-yesBtn-hover);
+}
+.dialog-alert-noBtn:hover {
+  background-color: var(--dialog-alert-noBtn-hover);
+}
