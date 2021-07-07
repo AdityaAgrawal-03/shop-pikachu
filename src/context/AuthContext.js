@@ -1,42 +1,88 @@
-import { createContext, useContext,  useState } from "react";
+import axios from "axios";
+import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { fakeAuthApi } from "../fakeAuthApi";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [isUserLoggedIn, setLogin] = useState(
-    JSON.parse(localStorage?.getItem("login"))
-  );
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(JSON.parse(localStorage?.getItem("user")));
+
   const navigate = useNavigate();
 
-  const checkUserWithCredentials = async (username, password) => {
+  const checkUserWithCredentials = async (email, password) => {
     try {
-      const response = await fakeAuthApi(username, password);
+      const {
+        data: { success, user },
+      } = await axios.post(
+        "https://shop-pikachu-backend.aditya365.repl.co/login",
+        {
+          email,
+          password,
+        }
+      );
 
-      if (response.success) {
-        setLogin(true);
-        console.log("from auth context");
-        localStorage?.setItem("login", true);
+      console.log({ success, user });
+
+      if (success) {
+        setUser(user._id);
+        localStorage?.setItem("user", JSON.stringify(user));
       }
+
+      return user;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  };
+
+  console.log({ user });
+
+  const signupUser = async (firstName, lastName, email, password) => {
+    try {
+      const {
+        data: { success, user },
+      } = await axios.post(
+        "https://shop-pikachu-backend.aditya365.repl.co/signup",
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        }
+      );
+
+      console.log({ success, user })
+
+      if (success) {
+        setUser(user._id);
+        localStorage?.setItem("user", JSON.stringify(user));
+      }
+
+      return user;
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const logout = () => {
-    setLogin(false);
-    localStorage?.removeItem("login");
+    setUser(null);
+    localStorage?.removeItem("user");
     navigate("/");
   };
 
   return (
     <AuthContext.Provider
-      value={{ isUserLoggedIn, checkUserWithCredentials, logout }}
+      value={{
+        user,
+        checkUserWithCredentials,
+        signupUser,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

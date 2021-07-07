@@ -1,15 +1,18 @@
 import { ProductCard } from "../../components/ProductCard/ProductCard";
+import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
-import { data } from "../../data/data-model";
 import "./Products.css";
 
 export function Products() {
   const {
-    state: { sortBy, showFastDeliveryOnly, showInventoryAll },
+    state: { inventory, sortBy, showFastDeliveryOnly, showInventoryAll },
     dispatch,
   } = useData();
 
-  const { products } = data;
+  console.log({ inventory });
+
+  const { isUserLoggedIn } = useAuth();
+  console.log(" from products.js", { isUserLoggedIn });
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -34,7 +37,7 @@ export function Products() {
       .filter(({ inStock }) => (showInventoryAll ? true : inStock));
   };
 
-  const sortedData = getSortedData(products, sortBy);
+  const sortedData = getSortedData(inventory, sortBy);
   const filteredData = getFilteredData(sortedData, {
     showFastDeliveryOnly,
     showInventoryAll,
@@ -142,8 +145,8 @@ export function Products() {
         </div>
       </div>
       <div className="card-container">
-        {filteredData.map((item) => (
-          <ProductCard item={item} key={item.id} />
+        {filteredData.map((product) => (
+          <ProductCard product={product} key={product._id} isUserLoggedIn={true} />
         ))}
       </div>
     </div>

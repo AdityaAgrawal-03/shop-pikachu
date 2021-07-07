@@ -1,24 +1,34 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
 
 export function Login() {
-  const { isUserLoggedIn, checkUserWithCredentials, logout } = useAuth();
+  const { user, checkUserWithCredentials, logout,  } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  console.log({ isUserLoggedIn });
+  console.log("from login", { user });
 
-  // console.log({ state });
+  const loginHandler = async (e) => {
+    e.preventDefault();
+   
+    if(!user) {
+      try {
+        const loginUser = await checkUserWithCredentials(email, password);
+        console.log({ loginUser })
+      } catch (error) {
+        console.error(error);
+      }
+      
+    } else {
+      logout();
 
-  const loginHandler = async () => {
-    isUserLoggedIn
-      ? logout()
-      : await checkUserWithCredentials(email, password);
-
+    }
+    
     navigate(state?.from ? state.from : "/", { replace: true });
   };
 
@@ -29,7 +39,7 @@ export function Login() {
           <h1>Login</h1>
         </div>
         <div className="login-form">
-          <form>
+          <form onSubmit={(e) => loginHandler(e)}>
             <input
               type="email"
               value={email}
@@ -38,7 +48,7 @@ export function Login() {
               onChange={(e) => setEmail(() => e.target.value)}
               required
             />
-    
+
             <input
               type="password"
               value={password}
@@ -49,11 +59,16 @@ export function Login() {
             />
             <button
               className="btn btn-secondary btn-login"
-              onClick={loginHandler}
+              type="submit"
             >
-              {isUserLoggedIn ? "Logout" : "Login"}
+              {user ? "Logout" : "Login"}
             </button>
           </form>
+          <div>
+            
+            Not a member yet?
+             <Link to="/signup" className="link"> Signup </Link>
+          </div>
         </div>
       </div>
     </div>

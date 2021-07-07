@@ -1,39 +1,78 @@
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
 import "./ProductCard.css";
 
-export function ProductCard({ item }) {
+export function ProductCard({ product }) {
   const {
     state: { cart, wishlist },
     dispatch,
   } = useData();
-
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const { id, price, fastDelivery, inStock, name, image } = item;
+  const { _id, price, fastDelivery, inStock, name, image } = product;
 
-  const isInCart = cart.find((cartItem) => cartItem.id === item.id);
-  const isInWishlist = wishlist.find(
-    (wishlistItem) => wishlistItem.id === item.id
+  const isInCart = cart?.find((cartItem) => cartItem._id === _id);
+  const isInWishlist = wishlist?.find(
+    (wishlistItem) => wishlistItem._id === _id
   );
 
-  const cartHandler = (e) => {
+  const cartHandler = async (e) => {
     e.preventDefault();
-    isInCart
-      ? navigate("/cart")
-      : dispatch({ type: "ADD_TO_CART", payload: item });
+    if (!isInCart) {
+      try {
+        const {
+          data: { success },
+        } = await axios.post(
+          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
+          {
+            product: {
+              _id,
+              quantity: 1,
+            },
+          }
+        );
+
+        if (success) {
+          dispatch({ type: "ADD_TO_CART", payload: product });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/cart");
+    }
   };
 
-  const wishlistHandler = (e) => {
+  const wishlistHandler = async (e) => {
     e.preventDefault();
-    isInWishlist
-      ? navigate("/wishlist")
-      : dispatch({ type: "ADD_TO_WISHLIST", payload: item });
+    if (!isInWishlist) {
+      try {
+        const {
+          data: { success },
+        } = await axios.post(
+          `https://shop-pikachu-backend.aditya365.repl.co/wishlist/${user._id}`,
+          {
+            product: {
+              _id,
+            },
+          }
+        );
+
+        if (success) {
+          dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
     <>
-      <Link to={`/productDetails/${id}`} className="link">
+      <Link to={`/product/${_id}`} className="link">
         <div className="card card-shadow card-badge card-product">
           <span className="badge badge-best-value">Best Value</span>
           <div className="card-header">
@@ -58,12 +97,15 @@ export function ProductCard({ item }) {
                 onClick={(e) => cartHandler(e)}
               >
                 Go to cart
-                <span class="material-icons-outlined">east</span>
+                <span className="material-icons-outlined">east</span>
               </button>
             ) : (
               <button
                 className="btn btn-primary btn-primary-icon-label"
-                onClick={(e) => cartHandler(e)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  user ? cartHandler(e) : navigate("/login");
+                }}
               >
                 <span className="material-icons-outlined md-light">
                   add_shopping_cart
@@ -74,19 +116,23 @@ export function ProductCard({ item }) {
             {isInWishlist ? (
               <button
                 className="btn btn-secondary btn-secondary-icon-label"
-                disabled="true"
+                disabled={true}
                 style={{
                   cursor: "default",
                 }}
-                onClick={(e) => wishlistHandler(e)}
               >
-                <span class="material-icons-outlined md-light">favorite</span>
+                <span className="material-icons-outlined md-light">
+                  favorite
+                </span>
                 Wishlisted
               </button>
             ) : (
               <button
                 className="btn btn-secondary btn-secondary-icon-label"
-                onClick={(e) => wishlistHandler(e)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  user ? wishlistHandler(e) : navigate("/login");
+                }}
               >
                 <span className="material-icons-outlined md-light">
                   favorite_border

@@ -4,7 +4,7 @@ import { useAuth } from "./context/AuthContext";
 export function PrivateRoute({ path, ...props }) {
   const { isUserLoggedIn } = useAuth();
 
-  console.log({path})
+  console.log("from private route", isUserLoggedIn)
   
 
   return (

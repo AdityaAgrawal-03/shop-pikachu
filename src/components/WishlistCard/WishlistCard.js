@@ -1,31 +1,73 @@
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useData } from "../../context/DataContext";
 import "./WishlistCard.css";
+import { useAuth } from "../../context/AuthContext";
 
-export function WishlistCard({ item }) {
+export function WishlistCard({ product }) {
   const {
     state: { cart, wishlist },
     dispatch,
   } = useData();
 
+  const { user } = useAuth();
+
   const navigate = useNavigate();
 
-  const { id, name, image, price, inStock } = item;
+  const { _id, name, image, price, inStock } = product;
 
-  const isInCart = cart.find((cartItem) => cartItem.id === item.id);
+  const isInCart = cart.find((cartItem) => cartItem._id === _id);
   const isInWishlist = wishlist.find(
-    (wishlistItem) => wishlistItem.id === item.id
+    (wishlistItem) => wishlistItem._id === _id
   );
 
-  const cartButtonHandler = (e) => {
+  const cartHandler = async (e) => {
     e.preventDefault();
-    isInCart
-      ? navigate("/cart")
-      : dispatch({ type: "ADD_TO_CART", payload: item });
+
+    if (!isInCart) {
+      try {
+        const {
+          data: { success },
+        } = await axios.post(
+          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
+          {
+            product: {
+              _id,
+              quantity: 1,
+            },
+          }
+        );
+
+        if (success) {
+          dispatch({ type: "ADD_TO_CART", payload: product });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/cart");
+    }
+  };
+
+  const removeProductFromWishlist = async (e) => {
+    e.preventDefault();
+    try {
+      const {
+        data: { success },
+      } = await axios.delete(
+        `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`
+      );
+
+      if (success) {
+        dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <Link to={`/productDetails/${id}`} className="link card-link">
+    <Link to={`/productDetails/${_id}`} className="link card-link">
       <div className="card card-shadow card-badge card-wishlist">
         <span className="badge badge-best-value">Best Value</span>
         <div className="card-header">
@@ -42,7 +84,7 @@ export function WishlistCard({ item }) {
                 {isInCart ? (
                   <button
                     className="btn btn-primary btn-primary-icon-label"
-                    onClick={(e) => cartButtonHandler(e)}
+                    onClick={(e) => cartHandler(e)}
                   >
                     Go to cart
                     <span class="material-icons-outlined">east</span>
@@ -50,7 +92,7 @@ export function WishlistCard({ item }) {
                 ) : (
                   <button
                     className="btn btn-primary btn-primary-icon-label"
-                    onClick={(e) => cartButtonHandler(e)}
+                    onClick={(e) => cartHandler(e)}
                   >
                     <span className="material-icons-outlined md-light">
                       add_shopping_cart
@@ -61,25 +103,17 @@ export function WishlistCard({ item }) {
               </>
             ) : (
               <div>
-                {" "}
                 Out of stock
                 <button className="btn btn-primary">Show similar items</button>
               </div>
             )}
 
-            {isInWishlist ? (
-              <button
-                className="btn btn-default"
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch({ type: "REMOVE_FROM_WISHLIST", payload: item });
-                }}
-              >
-                Remove from Wishlist
-              </button>
-            ) : (
-              ""
-            )}
+            <button
+              className="btn btn-default"
+              onClick={(e) => removeProductFromWishlist(e)}
+            >
+              Remove from Wishlist
+            </button>
           </div>
         </div>
       </div>

@@ -14,8 +14,8 @@ export function Cart() {
       <div className="cart-container">
         <h2 className="cart-container-heading">Cart</h2>
         <div className="card-container">
-          {cart.map((item) => (
-            <CartCard item={item} key={item.id} />
+          {cart.map((product) => (
+            <CartCard product={product} key={product._id} />
           ))}
         </div>
       </div>
@@ -25,7 +25,9 @@ export function Cart() {
           <p>SUBTOTAL</p>
           <p>Rs. {totalPrice}</p>
         </div>
-        <button className="btn btn-primary btn-cart-checkout">Proceed to checkout</button>
+        <button className="btn btn-primary btn-cart-checkout">
+          Proceed to checkout
+        </button>
       </div>
     </div>
   );

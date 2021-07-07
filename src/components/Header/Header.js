@@ -11,12 +11,12 @@ export function Header() {
 
   const navigate = useNavigate();
 
-  const { isUserLoggedIn } = useAuth();
+  const { user } = useAuth();
 
   const [dialog, setDialog] = useState(false);
 
   const checkUserStatus = () => {
-    isUserLoggedIn ? setDialog(true) : navigate("/login", { replace: true });
+    user ? setDialog(true) : navigate("/login", { replace: true });
   };
 
   return (
@@ -32,17 +32,10 @@ export function Header() {
         </div>
 
         <div className="nav-icons">
-          <button
-            className="btn btn-primary btn-loginStatus"
-            onClick={checkUserStatus}
-          >
-            {isUserLoggedIn ? "LOGOUT" : "LOGIN"}
-          </button>
-
           <Link to="/cart" className="link">
             <button className="btn-primary-icon">
               <div className="badge-icon">
-                {cart.length ? (
+                {cart?.length ? (
                   <>
                     <span className="material-icons-outlined md-36">
                       shopping_cart
@@ -61,7 +54,7 @@ export function Header() {
           <Link to="/wishlist" className="link">
             <button className="btn-primary-icon">
               <div className="badge-icon">
-                {wishlist.length ? (
+                {wishlist?.length ? (
                   <>
                     <span className="material-icons-outlined md-36">
                       bookmark_border
@@ -76,15 +69,22 @@ export function Header() {
               </div>
             </button>
           </Link>
+
+          <button
+            className="btn btn-primary btn-loginStatus"
+            onClick={checkUserStatus}
+          >
+            {user ? "LOGOUT" : "LOGIN"}
+          </button>
         </div>
       </nav>
     </div>
   );
 }
 
-function ShowDialog({ setDialog }) {
+function ShowDialog({ dialog, setDialog }) {
   const navigate = useNavigate();
-
+  const { dispatch } = useData();
   const { logout } = useAuth();
 
   return (
@@ -107,8 +107,10 @@ function ShowDialog({ setDialog }) {
             <button
               className="btn btn-primary dialog-alert-yesBtn"
               onClick={() => {
+                setDialog(false);
                 logout();
-                navigate("/login", { replace: true });
+                dispatch({ type: "RESET" });
+                navigate("/", { replace: true });
               }}
             >
               Yes

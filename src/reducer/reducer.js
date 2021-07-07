@@ -1,9 +1,27 @@
 export const reducerFunc = (state, action) => {
   switch (action.type) {
+    case "INITIALIZE_PRODUCTS":
+      return {
+        ...state,
+        inventory: action.payload,
+      };
+
+    case "INITIALIZE_CART":
+      return {
+        ...state,
+        cart: action.payload,
+      };
+
+    case "INITIALIZE_WISHLIST":
+      return {
+        ...state,
+        wishlist: action.payload,
+      };
+
     case "ADD_TO_CART":
       return {
         ...state,
-        cart: [...state.cart, action.payload],
+        cart: [...state.cart, { ...action.payload, quantity: 1 }],
         totalPrice: state.totalPrice + action.payload.price,
       };
 
@@ -11,8 +29,8 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         cart: state.cart.map((currentCartItem) =>
-          currentCartItem.id === action.payload.id
-            ? { ...currentCartItem, count: currentCartItem.count + 1 }
+          currentCartItem._id === action.payload._id
+            ? { ...currentCartItem, quantity: currentCartItem.quantity + 1 }
             : currentCartItem
         ),
         totalPrice: state.totalPrice + Number(action.payload.price),
@@ -22,8 +40,8 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         cart: state.cart.map((currentCartItem) =>
-          currentCartItem.id === action.payload.id
-            ? { ...currentCartItem, count: currentCartItem.count - 1 }
+          currentCartItem._id === action.payload._id
+            ? { ...currentCartItem, quantity: currentCartItem.quantity - 1 }
             : currentCartItem
         ),
         totalPrice: state.totalPrice - Number(action.payload.price),
@@ -41,7 +59,9 @@ export const reducerFunc = (state, action) => {
       };
 
     case "ADD_TO_WISHLIST":
-      return { ...state, wishlist: [...state.wishlist, action.payload] };
+      return { ...state,
+         wishlist: [...state.wishlist,  action.payload ] 
+        };
 
     case "REMOVE_FROM_WISHLIST":
       return {
@@ -86,6 +106,17 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         showTypeOfBike: state.showTypeOfBike.map(({ kidsBike }) => !kidsBike),
+      };
+
+    case "RESET":
+      return {
+        ...state,
+        cart: [],
+        wishlist: [],
+        sortBy: null,
+        showFastDeliveryOnly: false,
+        showInventoryAll: false,
+        totalPrice: 0,
       };
 
     default:
