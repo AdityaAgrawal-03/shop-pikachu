@@ -104,7 +104,7 @@ export function ProductDetails() {
                   ) : (
                     <button
                       className="btn btn-primary btn-primary-icon-label btn-productDetail"
-                      onClick={(e) => cartHandler(e)}
+                      onClick={(e) => user ? cartHandler(e) : navigate("/cart")}
                     >
                       <span className="material-icons-outlined md-light md-36">
                         add_shopping_cart
@@ -128,7 +128,7 @@ export function ProductDetails() {
                   ) : (
                     <button
                       className="btn btn-secondary btn-secondary-icon-label btn-productDetail"
-                      onClick={(e) => wishlistHandler(e)}
+                      onClick={(e) => user ? wishlistHandler(e) : navigate("/wishlist")}
                     >
                       <span className="material-icons-outlined md-light md-36">
                         favorite_border
