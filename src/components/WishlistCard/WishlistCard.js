@@ -29,7 +29,7 @@ export function WishlistCard({ product }) {
         const {
           data: { success },
         } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
+          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}/${_id}`,
           {
             product: {
               _id,
