@@ -1,5 +1,4 @@
 import { ProductCard } from "../../components/ProductCard/ProductCard";
-import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
 import "./Products.css";
 
@@ -9,10 +8,6 @@ export function Products() {
     dispatch,
   } = useData();
 
-  console.log({ inventory });
-
-  const { isUserLoggedIn } = useAuth();
-  console.log(" from products.js", { isUserLoggedIn });
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {

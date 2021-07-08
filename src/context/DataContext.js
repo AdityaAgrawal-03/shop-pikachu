@@ -23,7 +23,7 @@ const initialState = {
 
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, initialState);
-  const { user, isUserLoggedIn } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,8 +69,8 @@ export function DataProvider({ children }) {
       }
     };
 
-    isUserLoggedIn && fetchUserData();
-  }, [isUserLoggedIn, user]);
+    user && fetchUserData();
+  }, [user]);
 
  
 

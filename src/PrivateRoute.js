@@ -2,14 +2,11 @@ import { Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
 export function PrivateRoute({ path, ...props }) {
-  const { isUserLoggedIn } = useAuth();
-
-  console.log("from private route", isUserLoggedIn)
-  
+  const { user } = useAuth();
 
   return (
     <>
-      {isUserLoggedIn ? (
+      {user ? (
         <Route {...props} path={path} />
       ) : (
         <Navigate replace to="/login" state={{ from: path }} />
