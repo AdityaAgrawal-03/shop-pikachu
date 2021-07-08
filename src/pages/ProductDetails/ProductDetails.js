@@ -1,7 +1,8 @@
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
+import axios from "axios";
 import "./ProductDetails.css";
 import { useData } from "../../context/DataContext";
+import { useAuth } from "../../context/AuthContext";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -10,14 +11,67 @@ export function ProductDetails() {
     dispatch,
   } = useData();
 
-  const product = inventory.find((product) => product._id === productId);
-  // const { name, image, price, description, details } = product;
-  
+  const { user } = useAuth();
 
-  const isInCart = cart.find((cartItem) => cartItem.id === Number(productId));
-  const isInWishlist = wishlist.find(
-    (wishlistItem) => wishlistItem.id === Number(productId)
+  const navigate = useNavigate();
+
+  const product = inventory?.find((product) => product._id === productId);
+
+  const isInCart = cart?.find((cartItem) => cartItem._id === productId);
+  const isInWishlist = wishlist?.find(
+    (wishlistItem) => wishlistItem._id === productId
   );
+
+  const cartHandler = async (e) => {
+    e.preventDefault();
+    if (!isInCart) {
+      try {
+        const {
+          data: { success },
+        } = await axios.post(
+          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
+          {
+            product: {
+              productId,
+              quantity: 1,
+            },
+          }
+        );
+
+        if (success) {
+          dispatch({ type: "ADD_TO_CART", payload: product });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/cart");
+    }
+  };
+
+  const wishlistHandler = async (e) => {
+    e.preventDefault();
+    if (!isInWishlist) {
+      try {
+        const {
+          data: { success },
+        } = await axios.post(
+          `https://shop-pikachu-backend.aditya365.repl.co/wishlist/${user._id}`,
+          {
+            product: {
+              productId,
+            },
+          }
+        );
+
+        if (success) {
+          dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <>
@@ -33,25 +87,24 @@ export function ProductDetails() {
                 <div className="card-price"> Rs. {product.price} /- </div>
                 <div className="card-buttons">
                   {isInCart ? (
-                    <Link to="/cart" className="link">
-                      <button className="btn btn-primary btn-primary-icon-label btn-productDetail">
-                        Go to cart
-                        <span
-                          class="material-icons-outlined"
-                          style={{
-                            marginLeft: "2rem",
-                          }}
-                        >
-                          east
-                        </span>
-                      </button>
-                    </Link>
+                    <button
+                      className="btn btn-primary btn-primary-icon-label btn-productDetail"
+                      onClick={(e) => cartHandler(e)}
+                    >
+                      Go to cart
+                      <span
+                        class="material-icons-outlined"
+                        style={{
+                          marginLeft: "2rem",
+                        }}
+                      >
+                        east
+                      </span>
+                    </button>
                   ) : (
                     <button
                       className="btn btn-primary btn-primary-icon-label btn-productDetail"
-                      onClick={() =>
-                        dispatch({ type: "ADD_TO_CART", payload: product })
-                      }
+                      onClick={(e) => cartHandler(e)}
                     >
                       <span className="material-icons-outlined md-light md-36">
                         add_shopping_cart
@@ -62,7 +115,7 @@ export function ProductDetails() {
                   {isInWishlist ? (
                     <button
                       className="btn btn-secondary btn-secondary-icon-label btn-productDetail"
-                      disabled="true"
+                      disabled={true}
                       style={{
                         cursor: "default",
                       }}
@@ -75,9 +128,7 @@ export function ProductDetails() {
                   ) : (
                     <button
                       className="btn btn-secondary btn-secondary-icon-label btn-productDetail"
-                      onClick={() =>
-                        dispatch({ type: "ADD_TO_WISHLIST", payload: product })
-                      }
+                      onClick={(e) => wishlistHandler(e)}
                     >
                       <span className="material-icons-outlined md-light md-36">
                         favorite_border
