@@ -3,6 +3,7 @@ import axios from "axios";
 import "./ProductDetails.css";
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context/AuthContext";
+import { API_URL } from "../../utils";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -11,7 +12,7 @@ export function ProductDetails() {
     dispatch,
   } = useData();
 
-  const { user } = useAuth();
+  const { token } = useAuth();
 
   const navigate = useNavigate();
 
@@ -28,15 +29,12 @@ export function ProductDetails() {
       try {
         const {
           data: { success },
-        } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
-          {
-            product: {
-              productId,
-              quantity: 1,
-            },
-          }
-        );
+        } = await axios.post(`${API_URL}/cart`, {
+          product: {
+            productId,
+            quantity: 1,
+          },
+        });
 
         if (success) {
           dispatch({ type: "ADD_TO_CART", payload: product });
@@ -55,14 +53,11 @@ export function ProductDetails() {
       try {
         const {
           data: { success },
-        } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/wishlist/${user._id}`,
-          {
-            product: {
-              productId,
-            },
-          }
-        );
+        } = await axios.post(`${API_URL}/wishlist`, {
+          product: {
+            productId,
+          },
+        });
 
         if (success) {
           dispatch({ type: "ADD_TO_WISHLIST", payload: product });
@@ -104,7 +99,9 @@ export function ProductDetails() {
                   ) : (
                     <button
                       className="btn btn-primary btn-primary-icon-label btn-productDetail"
-                      onClick={(e) => user ? cartHandler(e) : navigate("/cart")}
+                      onClick={(e) =>
+                        token ? cartHandler(e) : navigate("/login")
+                      }
                     >
                       <span className="material-icons-outlined md-light md-36">
                         add_shopping_cart
@@ -128,7 +125,9 @@ export function ProductDetails() {
                   ) : (
                     <button
                       className="btn btn-secondary btn-secondary-icon-label btn-productDetail"
-                      onClick={(e) => user ? wishlistHandler(e) : navigate("/wishlist")}
+                      onClick={(e) =>
+                        token ? wishlistHandler(e) : navigate("/login")
+                      }
                     >
                       <span className="material-icons-outlined md-light md-36">
                         favorite_border

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { reducerFunc } from "../reducer/reducer";
-import { useAuth } from "./AuthContext";
+import { setUpAuthHeaderForServiceCalls, useAuth } from "./AuthContext";
+import { API_URL } from "../utils/index";
 
 export const DataContext = createContext();
 
@@ -23,16 +24,14 @@ const initialState = {
 
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, initialState);
-  const { user } = useAuth();
+  const { token } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const {
           data: { products },
-        } = await axios.get(
-          "https://shop-pikachu-backend.aditya365.repl.co/products"
-        );
+        } = await axios.get(`${API_URL}/products`);
 
         dispatch({
           type: "INITIALIZE_PRODUCTS",
@@ -51,17 +50,13 @@ export function DataProvider({ children }) {
       try {
         const {
           data: { cart },
-        } = await axios.get(
-          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`
-        );
+        } = await axios.get(`${API_URL}/cart`);
 
         dispatch({ type: "INITIALIZE_CART", payload: cart });
 
         const {
           data: { wishlist },
-        } = await axios.get(
-          `https://shop-pikachu-backend.aditya365.repl.co/wishlist/${user._id}`
-        );
+        } = await axios.get(`${API_URL}/wishlist`);
 
         dispatch({ type: "INITIALIZE_WISHLIST", payload: wishlist });
       } catch (error) {
@@ -69,10 +64,11 @@ export function DataProvider({ children }) {
       }
     };
 
-    user && fetchUserData();
-  }, [user]);
-
- 
+    if (token) {
+      setUpAuthHeaderForServiceCalls(token);
+      fetchUserData();
+    }
+  }, [token]);
 
   return (
     <DataContext.Provider value={{ state, dispatch }}>

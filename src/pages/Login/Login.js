@@ -5,31 +5,23 @@ import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
 
 export function Login() {
-  const { user, checkUserWithCredentials, logout,  } = useAuth();
+  const { checkUserWithCredentials, token } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  console.log("from login", { user });
-
   const loginHandler = async (e) => {
     e.preventDefault();
-   
-    if(!user) {
-      try {
-        const loginUser = await checkUserWithCredentials(email, password);
-        console.log({ loginUser })
-      } catch (error) {
-        console.error(error);
-      }
-      
-    } else {
-      logout();
+    try {
+      const { success } = await checkUserWithCredentials(email, password);
 
+      if (success) {
+        navigate(state?.from ? state.from : "/", { replace: true });
+      }
+    } catch (error) {
+      console.error(error);
     }
-    
-    navigate(state?.from ? state.from : "/", { replace: true });
   };
 
   return (
@@ -57,17 +49,16 @@ export function Login() {
               onChange={(e) => setPassword(() => e.target.value)}
               required
             />
-            <button
-              className="btn btn-secondary btn-login"
-              type="submit"
-            >
-              {user ? "Logout" : "Login"}
+            <button className="btn btn-secondary btn-login" type="submit">
+              {token ? "Logout" : "Login"}
             </button>
           </form>
           <div>
-            
             Not a member yet?
-             <Link to="/signup" className="link"> Signup </Link>
+            <Link to="/signup" className="link">
+              {" "}
+              Signup{" "}
+            </Link>
           </div>
         </div>
       </div>

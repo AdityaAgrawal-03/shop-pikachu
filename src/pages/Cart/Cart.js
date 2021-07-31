@@ -7,8 +7,6 @@ export function Cart() {
     state: { cart, totalPrice },
   } = useData();
 
-  console.log({ cart });
-
   return (
     <div className="cart-page">
       <div className="cart-container">

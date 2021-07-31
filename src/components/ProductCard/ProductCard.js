@@ -2,6 +2,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
+import { API_URL } from "../../utils/index";
 import "./ProductCard.css";
 
 export function ProductCard({ product }) {
@@ -9,7 +10,7 @@ export function ProductCard({ product }) {
     state: { cart, wishlist },
     dispatch,
   } = useData();
-  const { user } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
 
   const { _id, price, fastDelivery, inStock, name, image } = product;
@@ -25,15 +26,12 @@ export function ProductCard({ product }) {
       try {
         const {
           data: { success },
-        } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`,
-          {
-            product: {
-              _id,
-              quantity: 1,
-            },
-          }
-        );
+        } = await axios.post(`${API_URL}/cart`, {
+          product: {
+            _id,
+            quantity: 1,
+          },
+        });
 
         if (success) {
           dispatch({ type: "ADD_TO_CART", payload: product });
@@ -52,14 +50,11 @@ export function ProductCard({ product }) {
       try {
         const {
           data: { success },
-        } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/wishlist/${user._id}`,
-          {
-            product: {
-              _id,
-            },
-          }
-        );
+        } = await axios.post(`${API_URL}/wishlist`, {
+          product: {
+            _id,
+          },
+        });
 
         if (success) {
           dispatch({ type: "ADD_TO_WISHLIST", payload: product });
@@ -104,7 +99,7 @@ export function ProductCard({ product }) {
                 className="btn btn-primary btn-primary-icon-label"
                 onClick={(e) => {
                   e.preventDefault();
-                  user ? cartHandler(e) : navigate("/login");
+                  token ? cartHandler(e) : navigate("/login");
                 }}
               >
                 <span className="material-icons-outlined md-light">
@@ -131,7 +126,7 @@ export function ProductCard({ product }) {
                 className="btn btn-secondary btn-secondary-icon-label"
                 onClick={(e) => {
                   e.preventDefault();
-                  user ? wishlistHandler(e) : navigate("/login");
+                  token ? wishlistHandler(e) : navigate("/login");
                 }}
               >
                 <span className="material-icons-outlined md-light">

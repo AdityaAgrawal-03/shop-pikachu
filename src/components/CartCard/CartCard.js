@@ -1,12 +1,11 @@
-import { useData } from "../../context/DataContext";
-import { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
-import "./CartCard.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useData } from "../../context/DataContext";
+import { API_URL } from "../../utils";
+import "./CartCard.css";
 
 export function CartCard({ product }) {
   const { dispatch } = useData();
-  const { user } = useAuth();
 
   const { _id, name, image, price, quantity } = product;
 
@@ -15,12 +14,9 @@ export function CartCard({ product }) {
     try {
       const {
         data: { success },
-      } = await axios.post(
-        `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}/${_id}`,
-        {
-          quantity: quantity + 1,
-        }
-      );
+      } = await axios.post(`${API_URL}/cart/${_id}`, {
+        quantity: quantity + 1,
+      });
       if (success) {
         dispatch({ type: "INC_QTY", payload: product });
       }
@@ -32,15 +28,12 @@ export function CartCard({ product }) {
   const decreaseQuantity = async (e) => {
     e.preventDefault();
     try {
-      console.log({ quantity });
+     
       const {
         data: { success, product },
-      } = await axios.post(
-        `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}/${_id}`,
-        {
-          quantity: quantity - 1,
-        }
-      );
+      } = await axios.post(`${API_URL}/cart/${_id}`, {
+        quantity: quantity - 1,
+      });
       if (success) {
         console.log({ product });
         product.quantity === 0
@@ -57,12 +50,9 @@ export function CartCard({ product }) {
     try {
       const {
         data: { success },
-      } = await axios.post(
-        `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}/${_id}`,
-        {
-          quantity: 0,
-        }
-      );
+      } = await axios.post(`${API_URL}/cart/${_id}`, {
+        quantity: 0,
+      });
       if (success) {
         dispatch({ type: "REMOVE_FROM_CART", payload: product });
       }

@@ -1,25 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useData } from "../../context/DataContext";
+import { API_URL } from "../../utils";
 import "./WishlistCard.css";
-import { useAuth } from "../../context/AuthContext";
 
 export function WishlistCard({ product }) {
   const {
-    state: { cart, wishlist },
+    state: { cart },
     dispatch,
   } = useData();
-
-  const { user } = useAuth();
 
   const navigate = useNavigate();
 
   const { _id, name, image, price, inStock } = product;
 
   const isInCart = cart.find((cartItem) => cartItem._id === _id);
-  const isInWishlist = wishlist.find(
-    (wishlistItem) => wishlistItem._id === _id
-  );
 
   const cartHandler = async (e) => {
     e.preventDefault();
@@ -28,15 +23,12 @@ export function WishlistCard({ product }) {
       try {
         const {
           data: { success },
-        } = await axios.post(
-          `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}/${_id}`,
-          {
-            product: {
-              _id,
-              quantity: 1,
-            },
-          }
-        );
+        } = await axios.post(`${API_URL}/cart`, {
+          product: {
+            _id,
+            quantity: 1,
+          },
+        });
 
         if (success) {
           dispatch({ type: "ADD_TO_CART", payload: product });
@@ -54,9 +46,7 @@ export function WishlistCard({ product }) {
     try {
       const {
         data: { success },
-      } = await axios.delete(
-        `https://shop-pikachu-backend.aditya365.repl.co/cart/${user._id}`
-      );
+      } = await axios.delete(`${API_URL}/wishlist/${_id}`);
 
       if (success) {
         dispatch({ type: "REMOVE_FROM_WISHLIST", payload: product });

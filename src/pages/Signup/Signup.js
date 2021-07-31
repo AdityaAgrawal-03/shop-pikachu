@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Signup.css";
 
@@ -8,18 +9,24 @@ export function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signupUser } = useAuth();
-  
+  const navigate = useNavigate();
 
   const signupHandler = async (e) => {
     e.preventDefault();
     try {
-      const signupResponse = await signupUser(firstName, lastName, email, password);
-      console.log({signupResponse});
+      const { success } = await signupUser(
+        firstName,
+        lastName,
+        email,
+        password
+      );
+      if (success) {
+        navigate("/");
+      }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-    
-  }
+  };
 
   return (
     <div className="signup-page">

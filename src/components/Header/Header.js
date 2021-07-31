@@ -11,12 +11,12 @@ export function Header() {
 
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { token } = useAuth();
 
   const [dialog, setDialog] = useState(false);
 
   const checkUserStatus = () => {
-    user ? setDialog(true) : navigate("/login", { replace: true });
+    token ? setDialog(true) : navigate("/login", { replace: true });
   };
 
   return (
@@ -74,7 +74,7 @@ export function Header() {
             className="btn btn-primary btn-loginStatus"
             onClick={checkUserStatus}
           >
-            {user ? "LOGOUT" : "LOGIN"}
+            {token ? "LOGOUT" : "LOGIN"}
           </button>
         </div>
       </nav>
