@@ -27,10 +27,9 @@ function setUpAuthExceptionHandler(logout, navigate) {
 }
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(
-    JSON.parse(localStorage?.getItem("token"))
-  );
-
+  const getTokenFromLocalStorage = JSON.parse(
+    localStorage?.getItem("token"));
+  const [token, setToken] = useState(getTokenFromLocalStorage?.token);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +50,7 @@ export function AuthProvider({ children }) {
       if (success) {
         setToken(token);
         localStorage?.setItem("token", JSON.stringify({ token: token }));
+        setUpAuthHeaderForServiceCalls(token)
       }
 
       return { success, token, user };
