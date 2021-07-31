@@ -28,14 +28,12 @@ export function CartCard({ product }) {
   const decreaseQuantity = async (e) => {
     e.preventDefault();
     try {
-     
       const {
         data: { success, product },
       } = await axios.post(`${API_URL}/cart/${_id}`, {
         quantity: quantity - 1,
       });
       if (success) {
-        console.log({ product });
         product.quantity === 0
           ? dispatch({ type: "REMOVE_FROM_CART", payload: product })
           : dispatch({ type: "DEC_QTY", payload: product });
