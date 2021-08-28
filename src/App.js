@@ -1,13 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Cart } from "./pages/Cart/Cart";
-import { Wishlist } from "./pages/Wishlist/Wishlist";
-import { Products } from "./pages/Products/Products";
-import { ProductDetails } from "./pages/ProductDetails/ProductDetails";
+import {
+  Cart,
+  Wishlist,
+  ProductDetails,
+  Products,
+  Login,
+  Signup,
+  NoMatch,
+} from "./pages/index";
 import { Header } from "./components/Header/Header";
-import { NoMatch } from "./pages/NoMatch";
-import { Login } from "./pages/Login/Login";
-import { Signup } from "./pages/Signup/Signup";
 import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
