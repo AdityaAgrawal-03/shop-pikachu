@@ -6,7 +6,7 @@ import { API_URL } from "../utils/index";
 
 export const DataContext = createContext();
 
-const initialState = {
+ const initialState = {
   inventory: [],
   cart: [],
   wishlist: [],

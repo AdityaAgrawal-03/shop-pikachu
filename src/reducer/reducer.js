@@ -33,7 +33,7 @@ export const reducerFunc = (state, action) => {
             ? { ...currentCartItem, quantity: currentCartItem.quantity + 1 }
             : currentCartItem
         ),
-        totalPrice: state.totalPrice + Number(action.payload.price),
+        totalPrice: state.totalPrice + action.payload.price
       };
 
     case "DEC_QTY":
@@ -44,7 +44,7 @@ export const reducerFunc = (state, action) => {
             ? { ...currentCartItem, quantity: currentCartItem.quantity - 1 }
             : currentCartItem
         ),
-        totalPrice: state.totalPrice - Number(action.payload.price),
+        totalPrice: state.totalPrice - action.payload.price,
       };
 
     case "REMOVE_FROM_CART":
@@ -55,7 +55,7 @@ export const reducerFunc = (state, action) => {
         ),
         totalPrice:
           state.totalPrice -
-          action.payload.count * Number(action.payload.price),
+          action.payload.quantity * Number(action.payload.price),
       };
 
     case "ADD_TO_WISHLIST":
