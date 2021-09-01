@@ -1,20 +1,6 @@
 .login-page {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; */
   background-color: var(--primary-color);
 }
-
-/* .login-page-cover {
-  background: rgb(57, 62, 70);
-  background: linear-gradient(
-    45deg,
-    rgba(57, 62, 70, 1) 10%,
-    rgba(0, 173, 181, 1) 60%,
-    rgba(224, 224, 224, 1) 98%
-  );
-  height: 100vh;
-  color: var(--font-color)
-} */
 
 .login-page-content {
   color: var(--font-color);
@@ -22,10 +8,10 @@
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  
 }
 
-.login-form-heading, .login-form{
+.login-form-heading,
+.login-form {
   margin-left: 25rem;
   margin-bottom: 2rem;
 }
@@ -37,12 +23,13 @@
   width: 80%;
 }
 
-.input-text-form, .btn-login {
+.input-text-form,
+.btn-login {
   width: 80%;
 }
 
 .btn-login {
   margin-top: 1rem;
   padding: 1rem;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
