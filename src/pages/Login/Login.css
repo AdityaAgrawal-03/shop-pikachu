@@ -32,4 +32,13 @@
   margin-top: 1rem;
   padding: 1rem;
   text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.link-signup {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-left: 0.5rem;
 }

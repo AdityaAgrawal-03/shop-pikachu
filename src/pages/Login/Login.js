@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
+import "../../App.css"
 
 export function Login() {
   const { checkUserWithCredentials, token } = useAuth();
@@ -55,9 +56,8 @@ export function Login() {
           </form>
           <div>
             Not a member yet?
-            <Link to="/signup" className="link">
-              {" "}
-              Signup{" "}
+            <Link to="/signup" className="link-signup">
+              Signup
             </Link>
           </div>
         </div>

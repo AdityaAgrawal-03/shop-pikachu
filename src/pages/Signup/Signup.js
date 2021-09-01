@@ -43,7 +43,7 @@ export function Signup() {
               type="text"
               placeholder="Enter your first name"
               value={firstName}
-              className="input-text input-text-md input-text-form"
+              className="input-text input-text-lg input-text-form"
               onChange={(e) => setFirstName(() => e.target.value)}
               required
             />
@@ -55,7 +55,7 @@ export function Signup() {
               type="text"
               placeholder="Enter your last name"
               value={lastName}
-              className="input-text input-text-md input-text-form"
+              className="input-text input-text-lg input-text-form"
               onChange={(e) => setLastName(() => e.target.value)}
               required
             />
@@ -67,7 +67,7 @@ export function Signup() {
               type="email"
               placeholder="Enter your email address"
               value={email}
-              className="input-text input-text-md input-text-form"
+              className="input-text input-text-lg input-text-form"
               onChange={(e) => setEmail(() => e.target.value)}
               required
             />
@@ -79,7 +79,7 @@ export function Signup() {
               type="password"
               placeholder="Password"
               value={password}
-              className="input-text input-text-md input-text-form"
+              className="input-text input-text-lg input-text-form"
               onChange={(e) => setPassword(() => e.target.value)}
               required
             />
