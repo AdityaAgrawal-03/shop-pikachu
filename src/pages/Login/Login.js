@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import "./Login.css";
-import "../../App.css"
+import "../../App.css";
 
 export function Login() {
   const { checkUserWithCredentials, token } = useAuth();
@@ -30,6 +30,15 @@ export function Login() {
       <div className="login-page-content">
         <div className="login-form-heading">
           <h1>Login</h1>
+          <button
+            onClick={() => {
+              setEmail("test@gmail.com");
+              setPassword("test");
+            }}
+            className="btn-guest"
+          >
+            Use guest credentials
+          </button>
         </div>
         <div className="login-form">
           <form onSubmit={(e) => loginHandler(e)}>
@@ -50,7 +59,7 @@ export function Login() {
               onChange={(e) => setPassword(() => e.target.value)}
               required
             />
-            <button className="btn btn-secondary btn-login" type="submit">
+            <button className="btn btn-primary btn-login" type="submit">
               {token ? "Logout" : "Login"}
             </button>
           </form>
