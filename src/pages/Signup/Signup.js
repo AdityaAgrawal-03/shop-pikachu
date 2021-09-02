@@ -84,7 +84,7 @@ export function Signup() {
               required
             />
 
-            <button className="btn btn-secondary btn-signup" type="submit">Signup</button>
+            <button className="btn btn-primary btn-signup" type="submit">Signup</button>
           </form>
         </div>
       </div>

@@ -1,9 +1,7 @@
-.signup-page {
-  background-color: var(--primary-color);
-}
+
 
 .signup-page-content {
-  color: var(--font-color);
+ 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,4 +32,5 @@
 
 .label {
   margin-bottom: 0.5rem;
+  font-weight: bold;
 }

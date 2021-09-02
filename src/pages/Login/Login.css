@@ -1,9 +1,5 @@
-.login-page {
-  background-color: var(--primary-color);
-}
-
 .login-page-content {
-  color: var(--font-color);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,6 +24,16 @@
   width: 80%;
 }
 
+.btn-guest {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #3B82F6;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
 .btn-login {
   margin-top: 1rem;
   padding: 1rem;
@@ -38,7 +44,7 @@
 .link-signup {
   text-transform: uppercase;
   text-decoration: none;
-  color: white;
+  color: #3B82F6;
   font-weight: bold;
   margin-left: 0.5rem;
 }
