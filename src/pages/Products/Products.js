@@ -4,10 +4,15 @@ import "./Products.css";
 
 export function Products() {
   const {
-    state: { inventory, sortBy, showFastDeliveryOnly, showInventoryAll },
+    state: {
+      inventory,
+      sortBy,
+      showFastDeliveryOnly,
+      showInventoryAll,
+      sortByTypeOfBike,
+    },
     dispatch,
   } = useData();
-
 
   const getSortedData = (productList, sortBy) => {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -29,7 +34,14 @@ export function Products() {
       .filter(({ fastDelivery }) =>
         showFastDeliveryOnly ? fastDelivery : true
       )
-      .filter(({ inStock }) => (showInventoryAll ? true : inStock));
+      .filter(({ inStock }) => (showInventoryAll ? true : inStock))
+      .filter((product) =>
+        sortByTypeOfBike.length
+          ? sortByTypeOfBike.includes(product.typeOfBike)
+            ? product
+            : false
+          : product
+      );
   };
 
   const sortedData = getSortedData(inventory, sortBy);
@@ -112,28 +124,39 @@ export function Products() {
               Mountain Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_MOUNTAIN_BIKE" })}
+                onChange={() =>
+                  dispatch({
+                    type: "TOGGLE_BIKE",
+                    payload: "mountain",
+                  })
+                }
               />
             </label>
             <label>
               Road Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_ROAD_BIKE" })}
+                onChange={() =>
+                  dispatch({ type: "TOGGLE_BIKE", payload: "road" })
+                }
               />
             </label>
             <label>
               Hybrid Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_HYBRID_BIKE" })}
+                onChange={() =>
+                  dispatch({ type: "TOGGLE_BIKE", payload: "hybrid" })
+                }
               />
             </label>
             <label>
               Kids Bikes
               <input
                 type="checkbox"
-                onChange={() => dispatch({ type: "TOGGLE_KIDS_BIKE" })}
+                onChange={() =>
+                  dispatch({ type: "TOGGLE_BIKE", payload: "kids" })
+                }
               />
             </label>
           </div>
@@ -141,7 +164,11 @@ export function Products() {
       </div>
       <div className="card-container">
         {filteredData.map((product) => (
-          <ProductCard product={product} key={product._id} isUserLoggedIn={true} />
+          <ProductCard
+            product={product}
+            key={product._id}
+            isUserLoggedIn={true}
+          />
         ))}
       </div>
     </div>

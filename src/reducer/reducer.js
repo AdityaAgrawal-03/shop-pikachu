@@ -33,7 +33,7 @@ export const reducerFunc = (state, action) => {
             ? { ...currentCartItem, quantity: currentCartItem.quantity + 1 }
             : currentCartItem
         ),
-        totalPrice: state.totalPrice + action.payload.price
+        totalPrice: state.totalPrice + action.payload.price,
       };
 
     case "DEC_QTY":
@@ -54,8 +54,7 @@ export const reducerFunc = (state, action) => {
           (currentCartItem) => currentCartItem._id !== action.payload._id
         ),
         totalPrice:
-          state.totalPrice -
-          action.payload.quantity * action.payload.price,
+          state.totalPrice - action.payload.quantity * action.payload.price,
       };
 
     case "ADD_TO_WISHLIST":
@@ -79,33 +78,17 @@ export const reducerFunc = (state, action) => {
     case "TOGGLE_DELIVERY":
       return { ...state, showFastDeliveryOnly: !state.showFastDeliveryOnly };
 
-    case "TOGGLE_MOUNTAIN_BIKE":
+    case "TOGGLE_BIKE":
       return {
         ...state,
-        showTypeOfBike: state.showTypeOfBike.map(
-          ({ mountainBike }) => !mountainBike
-        ),
+        sortByTypeOfBike: state.sortByTypeOfBike.includes(action.payload)
+          ? state.sortByTypeOfBike.filter(
+              (typeOfBike) => typeOfBike !== action.payload
+            )
+          : [...state.sortByTypeOfBike, action.payload],
       };
 
-    case "TOGGLE_ROAD_BIKE":
-      return {
-        ...state,
-        showTypeOfBike: state.showTypeOfBike.map(({ roadBike }) => !roadBike),
-      };
-
-    case "TOGGLE_HYBRID_BIKE":
-      return {
-        ...state,
-        showTypeOfBike: state.showTypeOfBike.map(
-          ({ hybridBike }) => !hybridBike
-        ),
-      };
-
-    case "TOGGLE_KIDS_BIKE":
-      return {
-        ...state,
-        showTypeOfBike: state.showTypeOfBike.map(({ kidsBike }) => !kidsBike),
-      };
+  
 
     case "RESET":
       return {

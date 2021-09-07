@@ -29,12 +29,7 @@ export const data = {
         },
       ],
       price: 12000,
-      typeOfBike: [
-        { mountainBike: false },
-        { hybridBike: false },
-        { roadBike: true },
-        { kidsBike: false },
-      ],
+      typeOfBike: "road",
       inStock: true,
       fastDelivery: false,
       rating: 4,
@@ -67,12 +62,7 @@ export const data = {
         }
       ],
       price: 8000,
-      typeOfBike: [
-        { mountainBike: true },
-        { hybridBike: false },
-        { roadBike: false },
-        { kidsBike: false },
-      ],
+      typeOfBike: "mountain",
       inStock: true,
       fastDelivery: true,
       rating: 4,
@@ -109,12 +99,7 @@ export const data = {
         }
       ],
       price: 6000,
-      typeOfBike: [
-        { mountainBike: false },
-        { hybridBike: true },
-        { roadBike: false },
-        { kidsBike: false },
-      ],
+      typeOfBike: "hybrid",
       inStock: true,
       fastDelivery: false,
       rating: 4,
@@ -151,12 +136,7 @@ export const data = {
         }
       ],
       price: 3000,
-      typeOfBike: [
-        { mountainBike: false },
-        { hybridBike: false },
-        { roadBike: false },
-        { kidsBike: true },
-      ],
+      typeOfBike: "kids",
       inStock: true,
       fastDelivery: true,
       rating: 4,

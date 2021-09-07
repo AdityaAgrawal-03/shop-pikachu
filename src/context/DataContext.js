@@ -14,12 +14,7 @@ export const DataContext = createContext();
   showFastDeliveryOnly: false,
   showInventoryAll: false,
   totalPrice: 0,
-  showTypeOfBike: [
-    { mountainBike: false },
-    { hybridBike: false },
-    { roadBike: false },
-    { kidsBike: false },
-  ],
+  sortByTypeOfBike: []
 };
 
 export function DataProvider({ children }) {
