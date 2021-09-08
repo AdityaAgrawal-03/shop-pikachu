@@ -88,8 +88,6 @@ export const reducerFunc = (state, action) => {
           : [...state.sortByTypeOfBike, action.payload],
       };
 
-  
-
     case "RESET":
       return {
         ...state,

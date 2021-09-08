@@ -29,12 +29,12 @@ export function CartCard({ product }) {
     e.preventDefault();
     try {
       const {
-        data: { success, product },
+        data: { success, product: updatedProduct },
       } = await axios.post(`${API_URL}/cart/${_id}`, {
         quantity: quantity - 1,
       });
       if (success) {
-        product.quantity === 0
+        updatedProduct.quantity === 0
           ? dispatch({ type: "REMOVE_FROM_CART", payload: product })
           : dispatch({ type: "DEC_QTY", payload: product });
       }
