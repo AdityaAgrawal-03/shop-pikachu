@@ -28,3 +28,9 @@
   padding: 2rem 4rem;
   text-transform: uppercase;
 }
+
+.btn-disabled {
+  padding: 2rem 4rem;
+  text-transform: uppercase;
+  cursor: not-allowed;
+}

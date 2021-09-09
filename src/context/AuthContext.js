@@ -27,10 +27,13 @@ function setUpAuthExceptionHandler(logout, navigate) {
 }
 
 export function AuthProvider({ children }) {
-  const getTokenFromLocalStorage = JSON.parse(
-    localStorage?.getItem("token"));
+  const getTokenFromLocalStorage = JSON.parse(localStorage?.getItem("token"));
+  const getUserFromLocalStorage = JSON.parse(localStorage?.getItem("user"));
   const [token, setToken] = useState(getTokenFromLocalStorage?.token);
   const navigate = useNavigate();
+  const [user, setUser] = useState(getUserFromLocalStorage?.user);
+
+  console.log("from auth context",{user})
 
   useEffect(() => {
     setUpAuthExceptionHandler(logout, navigate);
@@ -45,12 +48,14 @@ export function AuthProvider({ children }) {
         password,
       });
 
-      console.log({ success, user });
-
       if (success) {
         setToken(token);
         localStorage?.setItem("token", JSON.stringify({ token: token }));
-        setUpAuthHeaderForServiceCalls(token)
+        localStorage?.setItem(
+          "user",
+          JSON.stringify({ user: { name: user.firstName, email: user.email } })
+        );
+        setUpAuthHeaderForServiceCalls(token);
       }
 
       return { success, token, user };
@@ -70,12 +75,14 @@ export function AuthProvider({ children }) {
         password,
       });
 
-      console.log({ success, user });
-
       if (success) {
         setToken(token);
 
         localStorage?.setItem("token", JSON.stringify({ token: token }));
+        localStorage?.setItem(
+          "user",
+          JSON.stringify({ user: { name: user.firstName, email: user.email } })
+        );
         setUpAuthHeaderForServiceCalls(token);
       }
 
@@ -88,6 +95,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setToken(null);
     localStorage?.removeItem("token");
+    setUser(null);
     navigate("/");
   };
 
@@ -98,6 +106,7 @@ export function AuthProvider({ children }) {
         checkUserWithCredentials,
         signupUser,
         logout,
+        user,
       }}
     >
       {children}

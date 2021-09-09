@@ -14,7 +14,8 @@ export const DataContext = createContext();
   showFastDeliveryOnly: false,
   showInventoryAll: false,
   totalPrice: 0,
-  sortByTypeOfBike: []
+  sortByTypeOfBike: [],
+  
 };
 
 export function DataProvider({ children }) {
