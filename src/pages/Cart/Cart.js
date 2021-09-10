@@ -77,7 +77,7 @@ export function Cart() {
         address: "Razorpay Corporate Office",
       },
       theme: {
-        color: "#393e46",
+        color: "#00adb5",
       },
     };
 
