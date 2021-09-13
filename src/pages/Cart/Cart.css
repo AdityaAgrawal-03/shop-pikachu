@@ -34,3 +34,16 @@
   text-transform: uppercase;
   cursor: not-allowed;
 }
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.btn-large {
+  font-size: var(--fontSizes-2xl);
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
+}

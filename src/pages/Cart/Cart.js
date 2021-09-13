@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context/AuthContext";
 import { CartCard } from "../../components/CartCard/CartCard";
@@ -9,7 +11,7 @@ import {
   RAZORPAY_LOGO,
 } from "../../utils/index";
 import "./Cart.css";
-import { useEffect } from "react";
+
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -27,9 +29,11 @@ function loadScript(src) {
 
 export function Cart() {
   const {
-    state: { cart, totalPrice }, dispatch
+    state: { cart, totalPrice },
+    dispatch,
   } = useData();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   async function displayRazorpay() {
     const response = await loadScript(`${RAZORPAY_CHECKOUT_URL}`);
@@ -91,37 +95,46 @@ export function Cart() {
   }, 0);
 
   useEffect(() => {
-    dispatch({ type: "SET_TOTAL_PRICE", payload: price })
-  }, [dispatch, price])
+    dispatch({ type: "SET_TOTAL_PRICE", payload: price });
+  }, [dispatch, price]);
 
   return (
-    <div className="cart-page">
-      <div className="cart-container">
-        <h2 className="cart-container-heading">Cart</h2>
-        <div className="card-container">
-          {cart.map((product) => (
-            <CartCard product={product} key={product._id} />
-          ))}
+    <div>
+      {cart.length ? (
+        <div className="cart-page">
+          <div className="cart-container">
+            <h2 className="cart-container-heading">Cart</h2>
+            <div className="card-container">
+              {cart.map((product) => (
+                <CartCard product={product} key={product._id} />
+              ))}
+            </div>
+          </div>
+          <div className="cart-checkout">
+            <h2 className="cart-checkout-heading"> Order Summary </h2>
+            <div className="cart-checkout-info">
+              <p>SUBTOTAL</p>
+              <p>Rs. {totalPrice}</p>
+            </div>
+            <button
+              className={
+                cart.length
+                  ? "btn btn-primary btn-cart-checkout"
+                  : "btn btn-primary btn-disabled"
+              }
+              disabled={cart.length ? false : true}
+              onClick={displayRazorpay}
+            >
+              Proceed to checkout
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="cart-checkout">
-        <h2 className="cart-checkout-heading"> Order Summary </h2>
-        <div className="cart-checkout-info">
-          <p>SUBTOTAL</p>
-          <p>Rs. {totalPrice}</p>
+      ) : (
+        <div className="cart-empty">
+          <h2> Cart is empty! </h2>
+          <button className="btn btn-primary btn-large" onClick={() => navigate("/")}> Start Shopping! </button>
         </div>
-        <button
-          className={
-            cart.length
-              ? "btn btn-primary btn-cart-checkout"
-              : "btn btn-primary btn-disabled"
-          }
-          disabled={cart.length ? false : true}
-          onClick={displayRazorpay}
-        >
-          Proceed to checkout
-        </button>
-      </div>
+      )}
     </div>
   );
 }
