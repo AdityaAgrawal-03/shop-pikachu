@@ -12,7 +12,6 @@ import {
 } from "../../utils/index";
 import "./Cart.css";
 
-
 function loadScript(src) {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -34,6 +33,18 @@ export function Cart() {
   } = useData();
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  const clearCart = async () => {
+    try {
+      const response = await axios.delete(`${API_URL}/cart`);
+
+      if (response.data.success) {
+        dispatch({ type: "CLEAR_CART" });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   async function displayRazorpay() {
     const response = await loadScript(`${RAZORPAY_CHECKOUT_URL}`);
@@ -69,6 +80,7 @@ export function Cart() {
 
         if (paymentVerification.data.success) {
           alert(paymentVerification.data.message);
+          clearCart();
         } else {
           alert("something went wrong");
         }
@@ -132,7 +144,12 @@ export function Cart() {
       ) : (
         <div className="cart-empty">
           <h2> Cart is empty! </h2>
-          <button className="btn btn-primary btn-large" onClick={() => navigate("/")}> Start Shopping! </button>
+          <button
+            className="btn btn-primary btn-large"
+            onClick={() => navigate("/")}
+          >
+            Start Shopping!
+          </button>
         </div>
       )}
     </div>

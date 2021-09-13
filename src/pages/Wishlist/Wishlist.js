@@ -7,8 +7,6 @@ export function Wishlist() {
     state: { wishlist },
   } = useData();
 
-  console.log({ wishlist })
-
   return (
     <div className="wishlist-page">
       <h2 className="wishlist-page-heading">Wishlist</h2>

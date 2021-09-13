@@ -15,7 +15,6 @@ export const DataContext = createContext();
   showInventoryAll: false,
   totalPrice: 0,
   sortByTypeOfBike: [],
-  
 };
 
 export function DataProvider({ children }) {
