@@ -57,6 +57,12 @@ export const reducerFunc = (state, action) => {
           state.totalPrice - action.payload.quantity * action.payload.price,
       };
 
+    case "SET_TOTAL_PRICE":
+      return {
+        ...state,
+        totalPrice: action.payload,
+      };
+
     case "ADD_TO_WISHLIST":
       return { ...state, wishlist: [...state.wishlist, action.payload] };
 

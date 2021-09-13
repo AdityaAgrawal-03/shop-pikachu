@@ -9,6 +9,7 @@ import {
   RAZORPAY_LOGO,
 } from "../../utils/index";
 import "./Cart.css";
+import { useEffect } from "react";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -26,7 +27,7 @@ function loadScript(src) {
 
 export function Cart() {
   const {
-    state: { cart, totalPrice },
+    state: { cart, totalPrice }, dispatch
   } = useData();
   const { user } = useAuth();
 
@@ -84,6 +85,14 @@ export function Cart() {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
+
+  const price = cart.reduce((previousValue, { price, quantity }) => {
+    return previousValue + price * quantity;
+  }, 0);
+
+  useEffect(() => {
+    dispatch({ type: "SET_TOTAL_PRICE", payload: price })
+  }, [dispatch, price])
 
   return (
     <div className="cart-page">
