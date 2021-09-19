@@ -77,7 +77,7 @@ export function WishlistCard({ product }) {
                     onClick={(e) => cartHandler(e)}
                   >
                     Go to cart
-                    <span class="material-icons-outlined">east</span>
+                    <span className="material-icons-outlined">east</span>
                   </button>
                 ) : (
                   <button

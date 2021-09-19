@@ -33,8 +33,6 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(getUserFromLocalStorage?.user);
 
-  console.log("from auth context",{user})
-
   useEffect(() => {
     setUpAuthExceptionHandler(logout, navigate);
   });
@@ -96,6 +94,7 @@ export function AuthProvider({ children }) {
     setToken(null);
     localStorage?.removeItem("token");
     setUser(null);
+    localStorage?.removeItem("user");
     navigate("/");
   };
 
