@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+
 import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
 import { API_URL } from "../../utils/index";
@@ -12,6 +14,8 @@ export function ProductCard({ product }) {
   } = useData();
   const { token } = useAuth();
   const navigate = useNavigate();
+  const [toast, setToast] = useState(false);
+  const [bagType, setBagType] = useState("");
 
   const { _id, price, fastDelivery, inStock, name, image } = product;
 
@@ -35,6 +39,8 @@ export function ProductCard({ product }) {
 
         if (success) {
           dispatch({ type: "ADD_TO_CART", payload: product });
+          setToast(true);
+          setBagType("cart");
         }
       } catch (error) {
         console.error(error);
@@ -57,6 +63,8 @@ export function ProductCard({ product }) {
         });
 
         if (success) {
+          setToast(true);
+          setBagType("wishlist");
           dispatch({ type: "ADD_TO_WISHLIST", payload: product });
         }
       } catch (error) {
@@ -67,6 +75,7 @@ export function ProductCard({ product }) {
 
   return (
     <>
+      {cart && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
       <Link to={`/product/${_id}`} className="link">
         <div className="card card-shadow card-badge card-product">
           <span className="badge badge-best-value">Best Value</span>
@@ -139,5 +148,36 @@ export function ProductCard({ product }) {
         </div>
       </Link>
     </>
+  );
+}
+
+export function Toast({ toast, setToast, bagType }) {
+  const previousToast = useRef();
+
+  previousToast.current = setTimeout(() => {
+    setToast(false);
+  }, 3000);
+
+  useEffect(() => {
+    return () => clearTimeout(previousToast.current);
+  }, []);
+
+  return (
+    <div>
+      <div
+        className={
+          toast
+            ? "alert success-alert top-right-toast-open"
+            : "alert success-alert top-right-toast"
+        }
+      >
+        <span className="material-icons-outlined md-24">task_alt</span>
+        {bagType === "cart" ? (
+          <> Product added to cart! </>
+        ) : (
+          <> Product added to wishlist! </>
+        )}
+      </div>
+    </div>
   );
 }
