@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 import "./ProductDetails.css";
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context/AuthContext";
 import { API_URL } from "../../utils";
+import { Toast } from "../../components/index"
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -13,6 +15,8 @@ export function ProductDetails() {
   } = useData();
 
   const { token } = useAuth();
+  const [toast, setToast] = useState(false);
+  const [bagType, setBagType] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,6 +42,8 @@ export function ProductDetails() {
 
         if (success) {
           dispatch({ type: "ADD_TO_CART", payload: product });
+          setToast(true);
+          setBagType("wishlist");
         }
       } catch (error) {
         console.error(error);
@@ -61,6 +67,8 @@ export function ProductDetails() {
 
         if (success) {
           dispatch({ type: "ADD_TO_WISHLIST", payload: product });
+          setToast(true);
+          setBagType("wishlist");
         }
       } catch (error) {
         console.error(error);
@@ -72,6 +80,7 @@ export function ProductDetails() {
     <>
       {product && (
         <div className="product-details-page">
+          {toast && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
           <div className="product-container">
             <div className="card card-productDetail">
               <div className="card-header">
