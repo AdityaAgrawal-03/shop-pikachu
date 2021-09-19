@@ -1,11 +1,12 @@
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
 import { API_URL } from "../../utils/index";
 import "./ProductCard.css";
+import { Toast } from "../index"
 
 export function ProductCard({ product }) {
   const {
@@ -151,33 +152,4 @@ export function ProductCard({ product }) {
   );
 }
 
-export function Toast({ toast, setToast, bagType }) {
-  const previousToast = useRef();
 
-  previousToast.current = setTimeout(() => {
-    setToast(false);
-  }, 3000);
-
-  useEffect(() => {
-    return () => clearTimeout(previousToast.current);
-  }, []);
-
-  return (
-    <div>
-      <div
-        className={
-          toast
-            ? "alert success-alert top-right-toast-open"
-            : "alert success-alert top-right-toast"
-        }
-      >
-        <span className="material-icons-outlined md-24">task_alt</span>
-        {bagType === "cart" ? (
-          <> Product added to cart! </>
-        ) : (
-          <> Product added to wishlist! </>
-        )}
-      </div>
-    </div>
-  );
-}
