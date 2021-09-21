@@ -86,8 +86,8 @@ export function Cart() {
         }
       },
       prefill: {
-        name: user.name,
-        email: user.email,
+        name: "tester",
+        email: "test@gmail.com",
         contact: "1234567890",
       },
       notes: {
