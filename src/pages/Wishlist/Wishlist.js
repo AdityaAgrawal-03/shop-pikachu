@@ -5,9 +5,18 @@ import "./Wishlist.css";
 
 export function Wishlist() {
   const {
-    state: { wishlist },
+    state: { wishlist }, isLoading
   } = useData();
   const navigate = useNavigate();
+
+  if(isLoading) {
+    return(
+      <div className="spinner">
+        <div></div>
+        <div></div>
+      </div>
+    )
+  }
 
   return (
     <div className="wishlist-page">

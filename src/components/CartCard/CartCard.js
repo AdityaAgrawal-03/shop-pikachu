@@ -70,7 +70,7 @@ export function CartCard({ product }) {
           <div className="card-title">
             <h3>{name}</h3>
           </div>
-          <div className="card-price">{price}</div>
+          <div className="card-price"> Rs. {price} /-</div>
           <div className="card-quantity">
             <button
               className="btn btn-primary"
@@ -88,8 +88,8 @@ export function CartCard({ product }) {
             </button>
           </div>
 
-          <button className="btn" onClick={(e) => removeProductFromCart(e)}>
-            Remove from Cart
+          <button className="btn-remove" onClick={(e) => removeProductFromCart(e)}>
+            <span className="underline-animation">Remove</span>
           </button>
         </div>
       </div>

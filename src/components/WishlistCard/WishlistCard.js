@@ -99,10 +99,11 @@ export function WishlistCard({ product }) {
             )}
 
             <button
-              className="btn btn-default"
+              className="btn-remove"
               onClick={(e) => removeProductFromWishlist(e)}
             >
-              Remove from Wishlist
+              <span className="underline-animation"> Remove </span>
+              
             </button>
           </div>
         </div>

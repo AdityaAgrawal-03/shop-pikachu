@@ -27,6 +27,7 @@
 .btn-cart-checkout {
   padding: 2rem 4rem;
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .btn-disabled {
@@ -46,4 +47,8 @@
   font-size: var(--fontSizes-2xl);
   padding: 1.5rem 2rem;
   margin-top: 1rem;
+}
+
+.cart-price {
+  font-weight: bold;
 }

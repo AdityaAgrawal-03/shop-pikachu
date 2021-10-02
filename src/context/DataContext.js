@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { reducerFunc } from "../reducer/reducer";
 import { setUpAuthHeaderForServiceCalls, useAuth } from "./AuthContext";
 import { API_URL } from "../utils/index";
@@ -20,9 +20,11 @@ export const DataContext = createContext();
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunc, initialState);
   const { token } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const {
           data: { products },
@@ -35,6 +37,8 @@ export function DataProvider({ children }) {
       } catch (error) {
         console.error(error);
       }
+
+      setIsLoading(false);
     };
 
     fetchData();
@@ -66,7 +70,7 @@ export function DataProvider({ children }) {
   }, [token]);
 
   return (
-    <DataContext.Provider value={{ state, dispatch }}>
+    <DataContext.Provider value={{ state, dispatch, isLoading }}>
       {children}
     </DataContext.Provider>
   );

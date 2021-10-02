@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../context/DataContext";
-import { useAuth } from "../../context/AuthContext";
 import { CartCard } from "../../components/CartCard/CartCard";
 import {
   API_URL,
@@ -30,9 +29,12 @@ export function Cart() {
   const {
     state: { cart, totalPrice },
     dispatch,
+    isLoading
   } = useData();
-  const { user } = useAuth();
+
   const navigate = useNavigate();
+
+  
 
   const clearCart = async () => {
     try {
@@ -110,6 +112,15 @@ export function Cart() {
     dispatch({ type: "SET_TOTAL_PRICE", payload: price });
   }, [dispatch, price]);
 
+  if (isLoading) {
+    return (
+      <div className="spinner">
+        <div></div>
+        <div></div>
+      </div>
+    )
+  }
+
   return (
     <div>
       {cart.length ? (
@@ -126,7 +137,7 @@ export function Cart() {
             <h2 className="cart-checkout-heading"> Order Summary </h2>
             <div className="cart-checkout-info">
               <p>SUBTOTAL</p>
-              <p>Rs. {totalPrice}</p>
+              <p className="cart-price">Rs. {totalPrice}</p>
             </div>
             <button
               className={
@@ -139,7 +150,9 @@ export function Cart() {
             >
               Proceed to checkout
             </button>
+            <p> Dummy Debit Card Number: 4111 1111 1111 1111 </p>
           </div>
+          
         </div>
       ) : (
         <div className="cart-empty">

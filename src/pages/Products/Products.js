@@ -12,6 +12,7 @@ export function Products() {
       sortByTypeOfBike,
     },
     dispatch,
+    isLoading,
   } = useData();
 
   const getSortedData = (productList, sortBy) => {
@@ -163,13 +164,22 @@ export function Products() {
         </div>
       </div>
       <div className="card-container">
-        {filteredData.map((product) => (
-          <ProductCard
-            product={product}
-            key={product._id}
-            isUserLoggedIn={true}
-          />
-        ))}
+        {isLoading ? (
+          <div className="spinner">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <>
+            {filteredData.map((product) => (
+              <ProductCard
+                product={product}
+                key={product._id}
+                isUserLoggedIn={true}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );

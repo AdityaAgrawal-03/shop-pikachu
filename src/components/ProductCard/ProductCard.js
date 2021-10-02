@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useData } from "../../context/DataContext";
 import { API_URL } from "../../utils/index";
 import "./ProductCard.css";
-import { Toast } from "../index"
+import { Toast } from "../index";
 
 export function ProductCard({ product }) {
   const {
@@ -79,9 +79,14 @@ export function ProductCard({ product }) {
       {cart && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
       <Link to={`/product/${_id}`} className="link">
         <div className="card card-shadow card-badge card-product">
-          <span className="badge badge-best-value">Best Value</span>
+          {price <= 8000 ? (
+            <span className="badge badge-best-value">Best Value</span>
+          ) : (
+            <span className="badge badge-best-seller">Best Seller</span>
+          )}
+
           <div className="card-header">
-            <img src={image} alt="bicycle-1" className="card-image" />
+            <img src={image} alt="bicycle" className="card-image" />
           </div>
           <div className="card-content">
             <div className="card-title">
@@ -151,5 +156,3 @@ export function ProductCard({ product }) {
     </>
   );
 }
-
-

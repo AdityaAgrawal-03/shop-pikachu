@@ -33,6 +33,9 @@
   font-weight: bold;
   margin-top: 0.5rem;
 }
+.btn-guest:hover {
+  font-weight: bolder;
+}
 
 .btn-login {
   margin-top: 1rem;
