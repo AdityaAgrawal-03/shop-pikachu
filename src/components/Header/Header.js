@@ -32,9 +32,11 @@ export function Header() {
         </div>
 
         <div className="nav-icons">
-          <button className="btn-primary-icon">
-            <span className="material-icons-round md-36">person</span>
-          </button>
+          {/* <Link to="/address" className="link">
+            <button className="btn-primary-icon">
+              <span className="material-icons-round md-36">person</span>
+            </button>
+          </Link> */}
 
           <Link to="/cart" className="link">
             <button className="btn-primary-icon">
