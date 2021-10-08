@@ -103,7 +103,6 @@ export function WishlistCard({ product }) {
               onClick={(e) => removeProductFromWishlist(e)}
             >
               <span className="underline-animation"> Remove </span>
-              
             </button>
           </div>
         </div>

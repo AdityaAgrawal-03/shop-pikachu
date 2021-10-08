@@ -76,7 +76,7 @@ export function ProductCard({ product }) {
 
   return (
     <>
-      {cart && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
+      {toast && <Toast toast={toast} setToast={setToast} bagType={bagType} />}
       <Link to={`/product/${_id}`} className="link">
         <div className="card card-shadow card-badge card-product">
           {price <= 8000 ? (

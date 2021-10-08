@@ -9,8 +9,16 @@ export function Toast({ toast, setToast, bagType }) {
   }, 3000);
 
   useEffect(() => {
-    return () => clearTimeout(previousToast.current);
-  }, []);
+    return () => clearTimeout(previousToast.current)
+  }, [])
+
+  // useEffect(() => {
+  //   let timerId = setTimeout(() => {
+  //     setToast(false);
+  //   }, 3000);
+
+  //   return () => clearTimeout(timerId);
+  // }, [setToast]);
 
   return (
     <div>
