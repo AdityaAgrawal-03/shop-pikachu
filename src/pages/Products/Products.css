@@ -1,0 +1,70 @@
+.product-page {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin-top: 2rem;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #c2bfbf;
+  margin-left: 4rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+}
+
+.filter-category {
+  margin-top: 2rem;
+}
+
+label {
+  cursor: pointer;
+}
+
+label > input {
+  margin-left: 1rem;
+}
+
+.card-product {
+  margin: 0 10rem 2rem 10rem;
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  margin: 30vh auto;
+}
+
+.spinner div {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 8px solid transparent;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spinnerOne 0.5s linear infinite;
+}
+
+.spinner div:nth-child(2) {
+  border: 8px solid transparent;
+  border-bottom-color: var(--primary-color);
+  animation: spinnerTwo 0.5s linear infinite;
+}
+
+@keyframes spinnerOne {
+  0% { transform: rotate(0deg); border-width: 10px; }
+  50% { transform: rotate(180deg); border-width: 1px; }
+  100% { transform: rotate(360deg); border-width: 10px; }
+}
+@keyframes spinnerTwo {
+  0% { transform: rotate(0deg); border-width: 1px; }
+  50% { transform: rotate(180deg); border-width: 10px; }
+  100% { transform: rotate(360deg); border-width: 1px; }
+}

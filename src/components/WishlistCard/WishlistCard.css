@@ -1,0 +1,30 @@
+.card-wishlist {
+  width: 100%;
+  min-height: 15rem;
+  max-height: 20rem;
+}
+
+.card-link {
+  width: 40%;
+  margin: 0.5rem 4rem;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.card-buttons button {
+  margin-top: 0.5rem;
+}
+
+.btn-remove {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--fontSizes-sm);
+}
+
+

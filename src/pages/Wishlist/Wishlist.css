@@ -1,0 +1,24 @@
+.wishlist-page-heading {
+  margin-top: 2rem;
+  margin-left: 4rem;
+}
+
+.card-container-wishlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.wishlist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.btn-large {
+  font-size: var(--fontSizes-2xl);
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
+}
